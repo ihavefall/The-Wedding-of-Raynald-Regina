@@ -507,7 +507,7 @@
         </div>
         
         <div class="video-wrapper pop-element">
-            <video src="Project Name 6.mp4" playsinline autoplay muted controls ></video>
+            <video src="Project Name 6.mp4" playsinline autoplay muted loop controls></video>
         </div>
 
         <div class="photobooth-wrapper pop-element">
@@ -660,12 +660,8 @@
         }, 800);
     });
 
-    document.addEventListener('play', (e) => {
-        if (e.target.tagName === 'VIDEO' && bgMusic && !bgMusic.paused) {
-            bgMusic.muted = true;
-            musicToggle.classList.add('is-muted');
-        }
-    }, true);
+    /* Video is silent (audio stripped), so background music keeps playing over it.
+       No need to mute music when the video plays. */
 
     function initScrollAnimations() {
         const observer = new IntersectionObserver((entries) => {
