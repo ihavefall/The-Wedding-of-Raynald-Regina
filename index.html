@@ -507,7 +507,7 @@
         </div>
         
         <div class="video-wrapper pop-element">
-            <video src="Project Name 6.mp4" playsinline autoplay muted loop controls></video>
+            <video src="Project Name 6.mp4" playsinline autoplay muted loop disablepictureinpicture disableremoteplayback preload="auto"></video>
         </div>
 
         <div class="photobooth-wrapper pop-element">
@@ -660,8 +660,23 @@
         }, 800);
     });
 
-    /* Video is silent (audio stripped), so background music keeps playing over it.
-       No need to mute music when the video plays. */
+    /* Video is silent (audio stripped), so background music should keep playing over it.
+       Some mobile browsers still pause background <audio> when a <video> starts, because
+       the OS hands the audio channel to the video. This guard resumes the music if that
+       happens — only when the user hasn't deliberately muted it via the toggle button. */
+    (function keepMusicPlaying() {
+        const vid = document.querySelector('.video-wrapper video');
+        if (!vid || !bgMusic) return;
+        const resumeIfNeeded = () => {
+            // Respect a deliberate mute: if the toggle shows muted, leave it alone.
+            const userMuted = musicToggle && musicToggle.classList.contains('is-muted');
+            if (!userMuted && bgMusic.paused) {
+                bgMusic.play().catch(() => {});
+            }
+        };
+        vid.addEventListener('play', () => setTimeout(resumeIfNeeded, 60));
+        vid.addEventListener('playing', () => setTimeout(resumeIfNeeded, 60));
+    })();
 
     function initScrollAnimations() {
         const observer = new IntersectionObserver((entries) => {
