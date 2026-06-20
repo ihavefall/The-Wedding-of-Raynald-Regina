@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- BUILD v5 — date one line + restrained, photo lower -->
+<!-- BUILD v6 — bigger date + calendar buttons (Google + iCal) -->
 <title>The Wedding of Raynald & Regina</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Courier+Prime:wght@400;700&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400..700;1,400..700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap');
@@ -219,8 +219,18 @@
     /* date/time as the focal point */
     .info-card .event-when { font-family: var(--font-display); font-weight: 600; font-size: 2rem; line-height: 1.25; margin-bottom: 6px; color: var(--cabernet-red); }
     .info-card .event-date { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.5rem, 6.5vw, 2rem); line-height: 1.2; margin-bottom: 4px; color: var(--cabernet-red); }
-    .info-card .event-date-header { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.15rem, 5vw, 1.6rem); line-height: 1.2; margin-top: 8px; margin-bottom: 6px; color: var(--cabernet-red); text-align: center; white-space: nowrap; }
-    .info-card .event-date-sub { font-family: var(--font-body); font-weight: 300; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.6; margin-bottom: 42px; color: var(--cabernet-red); }
+    .info-card .event-date-header { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.7rem, 7.5vw, 2.3rem); line-height: 1.15; margin-top: 8px; margin-bottom: 8px; color: var(--cabernet-red); text-align: center; }
+    .info-card .event-date-sub { font-family: var(--font-body); font-weight: 300; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.6; margin-bottom: 20px; color: var(--cabernet-red); }
+    .calendar-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 42px; }
+    .cal-btn {
+        display: inline-flex; align-items: center; gap: 7px;
+        font-family: var(--font-body); font-weight: 500; font-size: 0.72rem;
+        letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; cursor: pointer;
+        color: var(--cabernet-red); background: transparent; border: 1px solid var(--cabernet-red);
+        padding: 9px 16px; border-radius: 30px; transition: all 0.25s ease;
+    }
+    .cal-btn:hover { background: var(--cabernet-red); color: var(--paper-white); }
+    .cal-btn svg { width: 14px; height: 14px; }
     .info-card .event-time { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 7.5vw, 2.3rem); line-height: 1.1; margin-bottom: 10px; color: var(--cabernet-red); letter-spacing: 0.01em; }
     .info-card .event-venue { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(1rem, 4vw, 1.15rem); line-height: 1.4; }
     .info-card .event-where { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1.15rem; line-height: 1.4; }
@@ -493,6 +503,16 @@
         <div class="info-card pop-element">
             <p class="event-date-header">Saturday, 12th September 2026</p>
             <p class="event-date-sub">Save the Date</p>
+            <div class="calendar-buttons">
+                <a class="cal-btn" id="gcal-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20of%20Raynald%20%26%20Regina%20%E2%80%94%20Ceremony&dates=20260912T060000Z/20260912T080000Z&details=Wedding%20Ceremony%20of%20Raynald%20%26%20Regina.%20Reception%20follows%20at%2019.00%20WITA%20at%20Hotel%20Sutan%20Raja%20Kotamobagu.&location=Gereja%20Kristus%20Raja%20Kotamobagu" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Google Calendar
+                </a>
+                <button class="cal-btn" id="ical-btn" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Apple / iCal
+                </button>
+            </div>
             <h3>Wedding Ceremony</h3>
             <p class="event-time">14.00 WITA</p>
             <p class="event-venue">Gereja Kristus Raja Kotamobagu</p>
@@ -697,6 +717,80 @@
         };
         vid.addEventListener('play', () => setTimeout(resumeIfNeeded, 60));
         vid.addEventListener('playing', () => setTimeout(resumeIfNeeded, 60));
+    })();
+
+    /* --- ADD TO CALENDAR (iCalendar .ics) ---
+       Builds one .ics file containing BOTH the ceremony and the reception,
+       so adding it marks both events. Times are in WITA (UTC+8):
+         Ceremony 14:00 WITA = 06:00 UTC, Reception 19:00 WITA = 11:00 UTC. */
+    (function setupICal() {
+        const btn = document.getElementById('ical-btn');
+        if (!btn) return;
+
+        function icsEscape(s) {
+            return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+        }
+
+        function buildICS() {
+            const stamp = '20260101T000000Z';
+            const events = [
+                {
+                    uid: 'rr-ceremony-20260912@ihavefall',
+                    title: 'Wedding of Raynald & Regina — Ceremony',
+                    start: '20260912T060000Z',
+                    end:   '20260912T080000Z',
+                    location: 'Gereja Kristus Raja Kotamobagu',
+                    desc: 'Wedding Ceremony of Raynald & Regina at 14.00 WITA.'
+                },
+                {
+                    uid: 'rr-reception-20260912@ihavefall',
+                    title: 'Wedding of Raynald & Regina — Reception',
+                    start: '20260912T110000Z',
+                    end:   '20260912T140000Z',
+                    location: 'Hotel Sutan Raja Kotamobagu',
+                    desc: 'Wedding Reception of Raynald & Regina at 19.00 WITA.'
+                }
+            ];
+            let lines = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Raynald & Regina//Wedding//EN',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH'
+            ];
+            events.forEach(e => {
+                lines.push(
+                    'BEGIN:VEVENT',
+                    'UID:' + e.uid,
+                    'DTSTAMP:' + stamp,
+                    'DTSTART:' + e.start,
+                    'DTEND:' + e.end,
+                    'SUMMARY:' + icsEscape(e.title),
+                    'LOCATION:' + icsEscape(e.location),
+                    'DESCRIPTION:' + icsEscape(e.desc),
+                    'BEGIN:VALARM',
+                    'TRIGGER:-P1D',
+                    'ACTION:DISPLAY',
+                    'DESCRIPTION:' + icsEscape(e.title),
+                    'END:VALARM',
+                    'END:VEVENT'
+                );
+            });
+            lines.push('END:VCALENDAR');
+            return lines.join('\r\n');
+        }
+
+        btn.addEventListener('click', () => {
+            const blob = new Blob([buildICS()], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Raynald-and-Regina-Wedding.ics';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        });
     })();
 
     function initScrollAnimations() {
