@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- BUILD v12 — social preview, favicon, faster fonts -->
+<!-- BUILD v13 — faster load: defer audio/video, lazy images, prioritize first paint -->
 <title>The Wedding of Raynald &amp; Regina · 12.09.2026</title>
 <meta name="description" content="You're invited to celebrate the wedding of Raynald & Regina on Saturday, 12th September 2026 in Kotamobagu. Tap to open your invitation.">
 
@@ -460,7 +460,7 @@
 </head>
 <body>
 
-    <audio id="bg-music" src="YTDown_YouTube_Ed-Sheeran-The-Vow_Media_CXBw5mpruW0_001_1080p.mp3" loop preload="auto"></audio>
+    <audio id="bg-music" src="YTDown_YouTube_Ed-Sheeran-The-Vow_Media_CXBw5mpruW0_001_1080p.mp3" loop preload="none"></audio>
 
     <button id="music-toggle" class="music-toggle" aria-label="Toggle music">
         <svg class="icon-playing" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -483,7 +483,7 @@
         </div>
 
         <div class="envelope-wrapper">
-            <img src="envelope.png" alt="Wedding Invitation Envelope" class="envelope-img">
+            <img src="envelope.png" alt="Wedding Invitation Envelope" class="envelope-img" fetchpriority="high" decoding="async">
             <img class="envelope-overlay wax-seal" src="stamp.png" alt="Wax Seal">
             <img class="envelope-overlay bride-sticker" src="bride sticker.png" alt="Bride Sticker">
             <img class="envelope-overlay groom-sticker" src="groom sticker.png" alt="Groom Sticker">
@@ -523,7 +523,7 @@
             <div class="vertical-name">RAYN</div>
             <div class="polaroid-wrapper">
                 <div class="duct-tape"></div>
-                <img src="WhatsApp Image 2026-06-19 at 10.43.33 AM.jpeg" alt="Groom">
+                <img src="WhatsApp Image 2026-06-19 at 10.43.33 AM.jpeg" alt="Groom" loading="lazy" decoding="async">
             </div>
         </div>
 
@@ -542,7 +542,7 @@
             <div class="vertical-name">BREGI</div>
             <div class="polaroid-wrapper">
                 <div class="duct-tape"></div>
-                <img src="WhatsApp Image 2026-06-19 at 10.43.33 AM - Copy.jpeg" alt="Bride">
+                <img src="WhatsApp Image 2026-06-19 at 10.43.33 AM - Copy.jpeg" alt="Bride" loading="lazy" decoding="async">
             </div>
         </div>
 
@@ -590,7 +590,7 @@
             <p class="gift-lead">Your presence at our celebration is the greatest gift of all.</p>
             <p class="gift-note">We can’t wait to celebrate this beautiful moment with the people we love most. Save the date and lets create a day filled with joy, laughter and everlasting memories together. However, if you wish to honor us, the contribution can be made via the account below to help us begin our next chapter together.</p>
             <div class="qr-container">
-                <img src="4 - Copy.png" alt="QR Code" style="width: 150px;">
+                <img src="4 - Copy.png" alt="QR Code" style="width: 150px;" loading="lazy" decoding="async">
                 <p><strong>BCA: 0262945951</strong><br>A/N Bernandita Regina</p>
             </div>
             <div class="gift-script">With love &amp; gratitude</div>
@@ -603,7 +603,7 @@
         </div>
         
         <div class="video-wrapper pop-element">
-            <video src="Project Name 6.mp4" playsinline autoplay muted loop disablepictureinpicture disableremoteplayback preload="auto"></video>
+            <video src="Project Name 6.mp4" playsinline autoplay muted loop disablepictureinpicture disableremoteplayback preload="metadata"></video>
         </div>
 
         <div class="photobooth-wrapper pop-element">
@@ -692,6 +692,19 @@
     
     const bgMusic = document.getElementById('bg-music');
     const musicToggle = document.getElementById('music-toggle');
+
+    /* Smart audio preload: keep the first paint fast (preload="none" in HTML),
+       then quietly start buffering the song once the page is idle, so playback
+       is ready by the time the guest opens the envelope. */
+    (function warmUpAudio() {
+        if (!bgMusic) return;
+        const warm = () => { try { bgMusic.preload = 'auto'; bgMusic.load(); } catch (e) {} };
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(warm, { timeout: 2500 });
+        } else {
+            setTimeout(warm, 1500);
+        }
+    })();
 
     function startMusic() {
         if (!bgMusic) return;
