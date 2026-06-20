@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- BUILD v7 — Google Calendar adds both events (one button) -->
+<!-- BUILD v8 — per-event calendar buttons + iCal both events -->
 <title>The Wedding of Raynald & Regina</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Courier+Prime:wght@400;700&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400..700;1,400..700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap');
@@ -222,6 +222,8 @@
     .info-card .event-date-header { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.7rem, 7.5vw, 2.3rem); line-height: 1.15; margin-top: 8px; margin-bottom: 8px; color: var(--cabernet-red); text-align: center; }
     .info-card .event-date-sub { font-family: var(--font-body); font-weight: 300; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.6; margin-bottom: 20px; color: var(--cabernet-red); }
     .calendar-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 42px; }
+    .event-btn-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 14px; }
+    .event-btn-row .map-link { margin-top: 0; }
     .cal-btn {
         display: inline-flex; align-items: center; gap: 7px;
         font-family: var(--font-body); font-weight: 500; font-size: 0.72rem;
@@ -504,30 +506,38 @@
             <p class="event-date-header">Saturday, 12th September 2026</p>
             <p class="event-date-sub">Save the Date</p>
             <div class="calendar-buttons">
-                <button class="cal-btn" id="gcal-btn" type="button">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    Google Calendar
-                </button>
                 <button class="cal-btn" id="ical-btn" type="button">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    Apple / iCal
+                    Apple / iCal &middot; Both Events
                 </button>
             </div>
             <h3>Wedding Ceremony</h3>
             <p class="event-time">14.00 WITA</p>
             <p class="event-venue">Gereja Kristus Raja Kotamobagu</p>
-            <a class="map-link" href="https://maps.app.goo.gl/3w5aoncnqMW81TENA" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                View on Maps
-            </a>
+            <div class="event-btn-row">
+                <a class="cal-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20of%20Raynald%20%26%20Regina%20%E2%80%94%20Ceremony&dates=20260912T060000Z/20260912T080000Z&location=Gereja%20Kristus%20Raja%20Kotamobagu&details=Wedding%20Ceremony%20of%20Raynald%20%26%20Regina%20at%2014.00%20WITA." target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Add to Calendar
+                </a>
+                <a class="map-link" href="https://maps.app.goo.gl/3w5aoncnqMW81TENA" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    View on Maps
+                </a>
+            </div>
             <hr class="event-divider">
             <h3>Reception</h3>
             <p class="event-time">19.00 WITA</p>
             <p class="event-venue">Hotel Sutan Raja Kotamobagu</p>
-            <a class="map-link" href="https://maps.app.goo.gl/c3Q9uNP7ZVjuZAuQ6" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                View on Maps
-            </a>
+            <div class="event-btn-row">
+                <a class="cal-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20of%20Raynald%20%26%20Regina%20%E2%80%94%20Reception&dates=20260912T110000Z/20260912T130000Z&location=Hotel%20Sutan%20Raja%20Kotamobagu&details=Wedding%20Reception%20of%20Raynald%20%26%20Regina%20at%2019.00%20WITA." target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Add to Calendar
+                </a>
+                <a class="map-link" href="https://maps.app.goo.gl/c3Q9uNP7ZVjuZAuQ6" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    View on Maps
+                </a>
+            </div>
         </div>
 
         <h2 class="section-title">Wedding Gift</h2>
@@ -790,42 +800,6 @@
             a.click();
             document.body.removeChild(a);
             setTimeout(() => URL.revokeObjectURL(url), 1000);
-        });
-    })();
-
-    /* --- ADD TO GOOGLE CALENDAR (both events) ---
-       Google Calendar links hold one event each, so we open two:
-       ceremony (14.00 WITA = 06:00 UTC) and reception (19.00 WITA = 11:00 UTC). */
-    (function setupGoogleCal() {
-        const btn = document.getElementById('gcal-btn');
-        if (!btn) return;
-
-        function gcalUrl(text, start, end, location, details) {
-            const base = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
-            return base
-                + '&text=' + encodeURIComponent(text)
-                + '&dates=' + start + '/' + end
-                + '&location=' + encodeURIComponent(location)
-                + '&details=' + encodeURIComponent(details);
-        }
-
-        const ceremony = gcalUrl(
-            'Wedding of Raynald & Regina — Ceremony',
-            '20260912T060000Z', '20260912T080000Z',
-            'Gereja Kristus Raja Kotamobagu',
-            'Wedding Ceremony of Raynald & Regina at 14.00 WITA.'
-        );
-        const reception = gcalUrl(
-            'Wedding of Raynald & Regina — Reception',
-            '20260912T110000Z', '20260912T130000Z',
-            'Hotel Sutan Raja Kotamobagu',
-            'Wedding Reception of Raynald & Regina at 19.00 WITA.'
-        );
-
-        btn.addEventListener('click', () => {
-            // Open ceremony first, then reception. Two tabs = two events to save.
-            window.open(ceremony, '_blank', 'noopener');
-            setTimeout(() => window.open(reception, '_blank', 'noopener'), 400);
         });
     })();
 
