@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Wedding of Raynald & Regina</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Courier+Prime:wght@400;700&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400..700;1,400..700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+    /* ============================================================
+       LAYER 3 TYPOGRAPHY — minimalist pairing
+       Toggle between the two directions you asked for by swapping
+       which --font-display line is commented:
+         OPTION 1 (active): Cormorant Garamond (display) + Inter (body)
+         OPTION 3:          Playfair Display (display) + Inter (body)
+       ============================================================ */
+    :root {
+        --font-display: 'Cormorant Garamond', serif;   /* OPTION 1 */
+        /* --font-display: 'Playfair Display', serif;     OPTION 3 */
+        --font-body: 'Inter', sans-serif;
+    }
+
+    /* --- LOCAL DROID SERIF FONT --- */
+    @font-face {
+        font-family: 'Droid Serif';
+        src: url('droid-serif.regular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    :root {
+        --cabernet-red: #580f1c; 
+        --paper-white: #fdfbf7;
+        --text-dark: #2c1a1a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        background-color: var(--cabernet-red);
+        color: var(--paper-white);
+        font-family: 'Playfair Display', serif;
+        overflow-x: hidden;
+    }
+
+    /* --- FULLSCREEN LAYERS --- */
+    .fullscreen-layer {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        z-index: 100; background-color: var(--cabernet-red); transition: opacity 0.8s ease;
+    }
+
+    .clickable { cursor: pointer; }
+
+    /* Intro Text Styling */
+    .intro-text { text-align: center; margin-bottom: 40px; z-index: 10; transition: opacity 0.4s ease; }
+    .intro-top { font-family: 'Courier Prime', monospace; letter-spacing: 6px; font-size: 1.1rem; margin-bottom: 15px; }
+    .intro-names { font-family: 'Pinyon Script', cursive; font-size: 5.5rem; font-weight: 400; line-height: 1; }
+    .intro-bottom { margin-top: 15px; margin-bottom: 0; }
+
+    /* --- ENVELOPE WRAPPERS --- */
+    .envelope-wrapper { position: relative; width: 90%; max-width: 600px; transition: transform 0.5s ease; }
+    .envelope-wrapper:hover { transform: scale(1.02); }
+    .envelope-img { width: 100%; height: auto; display: block; }
+
+    #layer-1.opening .envelope-wrapper { animation: envelopeLift 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+    #layer-1.opening .intro-text { opacity: 0; transition: opacity 0.4s ease; }
+    @keyframes envelopeLift {
+        0%   { transform: scale(1) translateY(0); }
+        40%  { transform: scale(1.08) translateY(-10px); }
+        100% { transform: scale(1.4) translateY(-40px); opacity: 0; }
+    }
+
+    .envelope-overlay { position: absolute; z-index: 10; }
+    .wax-seal { width: 90px; top: 58%; left: 50%; transform: translate(-50%, -50%); filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
+    .bride-sticker { width: 90px; top: 30%; left: -35px; animation: floatLeft 3s ease-in-out infinite; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); }
+    .groom-sticker { width: 90px; bottom: 15%; right: -35px; animation: floatRight 3s ease-in-out infinite; animation-delay: 1.5s; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); }
+
+    @keyframes floatLeft { 0%, 100% { transform: translateY(0) rotate(-10deg); } 50% { transform: translateY(-12px) rotate(-10deg); } }
+    @keyframes floatRight { 0%, 100% { transform: translateY(0) rotate(10deg); } 50% { transform: translateY(-12px) rotate(10deg); } }
+
+    #layer-2 { justify-content: flex-start; padding-top: 6vh; }
+
+    .layer-2-header { text-align: center; margin-bottom: 5px; z-index: 20; opacity: 0; transform: translateY(-20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .layer-2-active .layer-2-header { opacity: 1; transform: translateY(0); }
+    .header-top { font-family: 'Courier Prime', monospace; letter-spacing: 8px; font-size: 1.4rem; font-weight: 700; margin-bottom: 5px; }
+    .header-names { font-family: 'Pinyon Script', cursive; font-size: 5.5rem; font-weight: 400; line-height: 1; }
+
+    .open-envelope-wrapper { position: relative; width: 90%; max-width: 600px; margin-top: 10px; transition: transform 0.5s ease; }
+    .open-envelope-wrapper:hover { transform: scale(1.02); }
+
+    .env-part { width: 100%; height: auto; display: block; }
+    .env-back { position: relative; z-index: 1; }
+    .tucked-film { position: absolute; width: 34%; left: 14%; bottom: 18%; z-index: 3; transform-origin: bottom center; transform: rotate(-8deg) translateY(40%); opacity: 0; }
+    .tucked-card { position: absolute; width: 48%; right: 10%; bottom: 18%; z-index: 2; transform-origin: bottom center; transform: rotate(10deg) translateY(40%); opacity: 0; }
+    .env-front { position: absolute; bottom: 0; left: 0; z-index: 4; }
+
+    .layer-2-active .tucked-film { animation: slideUpFilm 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.5s; }
+    .layer-2-active .tucked-card { animation: slideUpCard 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.7s; }
+
+    @keyframes slideUpFilm { to { transform: rotate(-7deg) translateY(-8%) translateX(18%); opacity: 1; } }
+    @keyframes slideUpCard { to { transform: rotate(12deg) translateY(-18%) translateX(-22%); opacity: 1; } }
+
+    .click-text { margin-top: 20px; font-family: 'Courier Prime', monospace; letter-spacing: 2px; font-size: 0.9rem; animation: pulse 1.5s infinite; z-index: 10; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    /* --- MUSIC TOGGLE BUTTON --- */
+    .music-toggle {
+        position: fixed; top: 18px; right: 18px; width: 46px; height: 46px; border-radius: 50%;
+        background: rgba(88, 15, 28, 0.85); border: 1px solid rgba(253, 251, 247, 0.5); color: var(--paper-white);
+        display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 9999;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4); transition: transform 0.2s ease, background 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .music-toggle:hover { transform: scale(1.08); background: rgba(88, 15, 28, 1); }
+    .music-toggle svg { width: 22px; height: 22px; display: block; }
+    .music-toggle .icon-muted { display: none; }
+    .music-toggle.is-muted .icon-playing { display: none; }
+    .music-toggle.is-muted .icon-muted { display: block; }
+
+    /* --- MAIN CONTENT --- */
+    #main-content { display: none; max-width: 800px; margin: 0 auto; padding: 40px 20px; background-color: var(--cabernet-red); }
+
+    .section-title { text-align: center; margin: 70px 0 28px; font-family: var(--font-display); font-weight: 500; font-size: 2.4rem; letter-spacing: 0.01em; }
+    .section-subtitle { text-align: center; margin-top: -14px; margin-bottom: 34px; font-family: var(--font-body); font-weight: 300; font-size: 0.95rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.85; }
+
+    /* --- SEE YOU THERE (TEXT VERSION, DROID SERIF, ANGLED) --- */
+    .see-you-there {
+        position: relative;
+        width: 100%;
+        max-width: 560px;
+        margin: 70px auto 50px;
+        color: var(--paper-white);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+        /* reserve vertical space since children are absolutely positioned / overlapping */
+        height: clamp(100px, 26vw, 160px);
+    }
+    .see-you-there.visible { opacity: 1; transform: translateY(0); }
+
+    /* "SEE YOU" — italic, tilted up, sitting upper-left over THERE */
+    .syt-small {
+        position: absolute;
+        top: 0;
+        left: 4%;
+        font-family: 'Droid Serif', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(1.8rem, 9.5vw, 3.4rem);
+        line-height: 1;
+        letter-spacing: 0.02em;
+        transform: rotate(-9deg);
+        transform-origin: left center;
+        white-space: nowrap;
+        z-index: 2;
+    }
+    /* make "YOU" larger than "SEE", like the reference */
+    .syt-small .syt-you {
+        font-size: 1.35em;
+    }
+
+    /* "THERE" — large, upright, tucked tight under SEE YOU */
+    .syt-large {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-family: 'Droid Serif', serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: clamp(3.6rem, 19vw, 7rem);
+        line-height: 0.85;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+        z-index: 1;
+    }
+
+    /* --- TEXTURED PAPER PROFILE CARDS --- */
+    .profile-card { 
+        background-image: url("paper.png"); background-size: contain; background-color: transparent; background-position: center; background-repeat: no-repeat; color: var(--text-dark); 
+        width: 100%; max-width: 560px; aspect-ratio: 1410 / 2000; margin: 0 auto 70px auto; padding: 0; position: relative; container-type: inline-size; 
+        filter: drop-shadow(5px 10px 15px rgba(0,0,0,0.5)); transform: translateY(50px); opacity: 0; transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+    }
+    .profile-card.visible { transform: translateY(0); opacity: 1; }
+    .groom-card { max-width: 460px; }
+
+    .card-content { position: absolute; top: 12%; bottom: 48%; display: flex; flex-direction: column; overflow: hidden; }
+    .groom-card .card-content { left: 19%; right: 18%; }
+    .bride-card .card-content { left: 18%; right: 19%; }
+    
+    .detail-table { font-family: var(--font-body); width: 100%; margin-bottom: 5%; border-collapse: separate; border-spacing: 0 1.4%; font-size: clamp(0.66rem, 3.1cqw, 0.9rem); }
+    .detail-table td.label { width: 18%; font-weight: 600; letter-spacing: 0.04em; vertical-align: middle; font-size: 0.82em; text-transform: uppercase; opacity: 0.7; }
+    .detail-table td.value { border: none; border-bottom: 1px solid rgba(51,51,51,0.25); padding: 4px 6px; background-color: transparent; font-weight: 400; }
+    
+    .typewriter-text { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: clamp(0.92rem, 4cqw, 1.25rem); line-height: 1.5; flex: 1 1 auto; min-height: 0; overflow: hidden; color: #2c1a1a; }
+    
+    .vertical-name { position: absolute; bottom: 24%; font-family: var(--font-display); font-size: clamp(1.6rem, 9cqw, 3rem); color: var(--cabernet-red); writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: 0.08em; font-weight: 500; z-index: 6; }
+    .groom-card .vertical-name { left: 16%; } .bride-card .vertical-name { right: 16%; }
+    
+    .polaroid-wrapper { position: absolute; bottom: 12%; width: 40%; background: #fff; padding: 5% 5% 14% 5%; box-shadow: 2px 8px 20px rgba(0,0,0,0.4); z-index: 10; }
+    .groom-card .polaroid-wrapper { right: 12%; transform: rotate(5deg); } .bride-card .polaroid-wrapper { left: 12%; transform: rotate(-4deg); }
+    .polaroid-wrapper img { width: 100%; display: block; background-color: #eee; aspect-ratio: 1/1; object-fit: cover; }
+    
+    .duct-tape { position: absolute; top: -12px; left: 50%; width: 80px; height: 25px; background: rgba(220, 220, 220, 0.9); box-shadow: 0 1px 3px rgba(0,0,0,0.2); z-index: 11; }
+    .groom-card .duct-tape { transform: translateX(-50%) rotate(-4deg); } .bride-card .duct-tape { transform: translateX(-50%) rotate(3deg); }
+
+    /* Detail & Gift Cards */
+    .info-card { background-color: #f0ede1; color: #2c1a1a; padding: 48px 32px; text-align: center; border-radius: 8px; margin-bottom: 40px; opacity: 0; transform: scale(0.97); transition: all 0.8s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.12); font-family: var(--font-body); font-weight: 300; }
+    .info-card.visible { opacity: 1; transform: scale(1); }
+    .info-card p { font-family: var(--font-body); font-weight: 300; font-size: 0.98rem; line-height: 1.7; }
+    .info-card h3 { font-family: var(--font-body); font-weight: 500; font-size: 0.82rem; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 14px; color: var(--cabernet-red); }
+    /* date/time as the focal point */
+    .info-card .event-when { font-family: var(--font-display); font-weight: 600; font-size: 2rem; line-height: 1.25; margin-bottom: 6px; color: var(--cabernet-red); }
+    .info-card .event-where { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1.15rem; line-height: 1.4; }
+    .info-card strong { font-weight: 600; letter-spacing: 0.03em; }
+    /* subtle divider between ceremony and reception */
+    .event-divider { width: 40px; height: 1px; background: rgba(88,15,28,0.35); margin: 26px auto; border: none; }
+    .map-link {
+        display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
+        font-family: var(--font-body); font-weight: 500; font-size: 0.72rem;
+        letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+        color: var(--cabernet-red); border: 1px solid var(--cabernet-red);
+        padding: 7px 14px; border-radius: 30px; transition: all 0.25s ease;
+    }
+    .map-link:hover { background: var(--cabernet-red); color: var(--paper-white); }
+    .map-link svg { width: 13px; height: 13px; }
+
+    /* Gift card — warm & joyful */
+    .gift-lead { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(1.2rem, 4.5vw, 1.5rem); line-height: 1.5; color: var(--cabernet-red); margin-bottom: 18px; }
+    .gift-note { font-family: var(--font-body); font-weight: 300; font-size: 0.96rem; line-height: 1.7; }
+    .gift-script { font-family: 'Pinyon Script', cursive; font-size: clamp(2.2rem, 9vw, 3rem); color: var(--cabernet-red); line-height: 1; margin: 28px 0 0; }
+    .qr-container { margin-top: 22px; padding: 18px; border: 1px solid var(--cabernet-red); border-radius: 10px; display: inline-block; background-color: rgba(255,255,255,0.4); }
+    .qr-container p { font-family: var(--font-body); font-size: 0.85rem; margin-top: 8px; }
+
+    /* --- VIDEO SECTION --- */
+    .video-wrapper { background: #fcf1dd; padding: 12px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin: 0 auto 80px auto; opacity: 0; transform: translateY(30px); transition: all 0.8s ease; width: fit-content; max-width: 100%; }
+    .video-wrapper.visible { opacity: 1; transform: translateY(0); }
+    .video-wrapper video { width: 300px; max-width: 100%; aspect-ratio: 9 / 16; border-radius: 4px; display: block; background-color: #000; object-fit: cover; }
+
+    /* --- REAL PHOTOBOOTH EFFECT --- */
+    .photobooth-wrapper { background-color: #fcf1dd; padding: 40px 20px 60px; border-radius: 12px; margin-top: 80px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    .photobooth-wrapper.visible { opacity: 1; transform: translateY(0); }
+    .photobooth-container { position: relative; width: 100%; max-width: 380px; margin: 0 auto; }
+    .printer-slot { width: 100%; height: 40px; background: linear-gradient(to bottom, #444, #1a1a1a); border-radius: 20px; position: relative; z-index: 10; box-shadow: 0 8px 15px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; margin-bottom: -8px; }
+    .printer-slit { width: 90%; height: 12px; background: #000; border-radius: 10px; box-shadow: inset 0 4px 6px rgba(0,0,0,0.8); }
+    .strip-mask { width: 85%; margin: 0 auto; overflow: hidden; position: relative; z-index: 5; padding-bottom: 25px; }
+    .photo-strip { background-color: var(--cabernet-red); padding: 15px; box-shadow: 0 15px 25px rgba(0,0,0,0.4); transform: translate3d(0,-100%,0); will-change: transform; backface-visibility: hidden; }
+    .photobooth-wrapper.visible .photo-strip { animation: printOut 2.4s cubic-bezier(0.33, 0, 0.2, 1) forwards; animation-delay: 0.4s; }
+    @keyframes printOut { 0% { transform: translate3d(0,-100%,0); } 100% { transform: translate3d(0,0,0); } }
+    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .photo-grid img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 2px; filter: contrast(1.1) brightness(0.95); transform: translateZ(0); }
+    .strip-footer { text-align: center; margin-top: 25px; margin-bottom: 10px; color: var(--paper-white); display: flex; flex-direction: column; gap: 5px; }
+    .strip-names { font-family: 'Pinyon Script', cursive; font-size: 2.3rem; line-height: 1; }
+    .strip-date { font-family: 'Courier Prime', monospace; font-size: 0.9rem; letter-spacing: 3px; }
+
+    /* --- LAYER 4: GUESTBOOK STYLING --- */
+    .open-guestbook-btn {
+        background-color: var(--paper-white);
+        color: var(--cabernet-red);
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 1.3rem;
+        letter-spacing: 0.01em;
+        padding: 14px 44px;
+        border: none;
+        border-radius: 30px;
+        margin: 80px auto 50px auto; 
+        display: block;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        transition: transform 0.3s ease;
+    }
+    .open-guestbook-btn:hover { transform: scale(1.05); }
+
+    #layer-4 {
+        justify-content: flex-start;
+        padding: 60px 20px 40px 20px;
+        background-color: #faf4ea;
+        color: var(--text-dark);
+        overflow-y: auto;
+    }
+
+    .guestbook-container { width: 100%; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; height: 100%; }
+    .guestbook-header { text-align: center; margin-bottom: 18px; }
+    .guestbook-title { font-family: 'Pinyon Script', cursive; color: var(--cabernet-red); font-size: clamp(3.2rem, 14vw, 4.5rem); font-weight: 400; line-height: 1; margin: 0; }
+    .guestbook-sub { font-family: var(--font-body); font-weight: 300; font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cabernet-red); opacity: 0.7; margin-top: 6px; }
+    
+    .back-btn {
+        background: none; border: none; font-family: var(--font-body); font-size: 0.85rem;
+        letter-spacing: 0.05em; color: var(--cabernet-red); cursor: pointer; text-align: left;
+        margin-bottom: 20px; font-weight: 500;
+    }
+
+    .chat-history {
+        flex: 1; background: #f0ede1; border-radius: 12px; padding: 20px; overflow-y: auto;
+        display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .chat-bubble {
+        background: #fff; padding: 15px; border-radius: 15px; border-bottom-left-radius: 2px;
+        max-width: 85%; align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .chat-bubble:nth-child(even) {
+        align-self: flex-end; background: var(--cabernet-red); color: var(--paper-white); border-bottom-left-radius: 15px; border-bottom-right-radius: 2px;
+    }
+
+    .chat-name { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; margin-bottom: 4px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; color: var(--cabernet-red); }
+    .chat-bubble:nth-child(even) .chat-name { color: var(--paper-white); }
+    .chat-time { font-family: var(--font-body); font-weight: 400; font-size: 0.68rem; letter-spacing: 0.03em; opacity: 0.55; }
+    .chat-message { font-family: var(--font-body); font-weight: 300; font-size: 0.98rem; line-height: 1.5; }
+
+    /* Reaction row under each bubble */
+    .reaction-row { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+    .reaction-btn {
+        background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); border-radius: 20px;
+        padding: 3px 10px; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+        transition: transform 0.15s ease, background 0.2s ease; line-height: 1.4; -webkit-tap-highlight-color: transparent;
+    }
+    .reaction-btn:hover { transform: scale(1.1); }
+    .reaction-btn:active { transform: scale(0.92); }
+    .reaction-btn .r-count { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; min-width: 8px; }
+    .reaction-btn.reacted { background: var(--cabernet-red); color: var(--paper-white); border-color: var(--cabernet-red); }
+    /* On the dark (even) bubbles, lighten the reaction chips */
+    .chat-bubble:nth-child(even) .reaction-btn { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.35); color: var(--paper-white); }
+    .chat-bubble:nth-child(even) .reaction-btn.reacted { background: var(--paper-white); color: var(--cabernet-red); border-color: var(--paper-white); }
+
+    /* Status / count line above the form */
+    .guestbook-meta {
+        display: flex; justify-content: space-between; align-items: center;
+        font-family: var(--font-body); font-size: 0.78rem; color: var(--cabernet-red);
+        margin-bottom: 10px; padding: 0 4px; min-height: 18px;
+    }
+    .guestbook-status { opacity: 0.7; }
+    .guestbook-count { font-weight: 600; }
+
+    .message-form { display: flex; flex-direction: column; gap: 10px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .message-form input, .message-form textarea {
+        width: 100%; padding: 12px; border: 1px solid #d8d0c4; border-radius: 6px; font-family: var(--font-body); font-weight: 300; font-size: 1rem;
+    }
+    .message-form input:focus, .message-form textarea:focus { outline: none; border-color: var(--cabernet-red); }
+    .message-form textarea { resize: vertical; min-height: 80px; }
+
+    /* Emoji quick-insert row + char counter */
+    .form-extras { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: -2px; }
+    .emoji-row { display: flex; gap: 4px; }
+    .emoji-insert {
+        background: #f0ede1; border: none; border-radius: 8px; padding: 4px 8px; font-size: 1.1rem;
+        cursor: pointer; transition: transform 0.15s ease; -webkit-tap-highlight-color: transparent;
+    }
+    .emoji-insert:hover { transform: scale(1.2); }
+    .char-counter { font-family: var(--font-body); font-size: 0.72rem; color: #999; white-space: nowrap; }
+    .char-counter.near-limit { color: var(--cabernet-red); font-weight: 600; }
+
+    .send-btn {
+        background: var(--cabernet-red); color: var(--paper-white); border: none; padding: 12px; border-radius: 6px;
+        font-family: 'Droid Serif', serif; font-weight: 400; font-size: 1.05rem; letter-spacing: 0.05em;
+        cursor: pointer; transition: background 0.3s, opacity 0.3s;
+    }
+    .send-btn:hover { background: #3a0a12; }
+    .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Confetti */
+    .confetti-piece {
+        position: fixed; width: 10px; height: 14px; top: -20px; z-index: 99999;
+        pointer-events: none; will-change: transform, opacity;
+    }
+
+    /* Empty / loading state */
+    .gb-placeholder { text-align: center; font-family: var(--font-display); font-style: italic; font-weight: 500; color: #998; padding: 30px 10px; font-size: 1.05rem; }
+
+    @media (min-width: 768px) {
+        .bride-card { max-width: 600px; }
+        .groom-card { max-width: 500px; }
+    }
+    @media (max-width: 600px) {
+        .header-top { font-size: 0.95rem; letter-spacing: 4px; }
+        .header-names { font-size: 3.5rem; }
+        .intro-names { font-size: 3.5rem; }
+        .intro-top { font-size: 0.9rem; letter-spacing: 4px; }
+        #layer-2 { padding-top: 4vh; }
+    }
+</style>
+</head>
+<body>
+
+    <audio id="bg-music" src="YTDown_YouTube_Ed-Sheeran-The-Vow_Media_CXBw5mpruW0_001_1080p.mp3" loop preload="auto"></audio>
+
+    <button id="music-toggle" class="music-toggle" aria-label="Toggle music">
+        <svg class="icon-playing" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="3 9 3 15 7 15 12 20 12 4 7 9 3 9" fill="currentColor" stroke="none"></polygon>
+            <path d="M16 8a4 4 0 0 1 0 8"></path>
+            <path d="M18.5 5.5a8 8 0 0 1 0 13"></path>
+        </svg>
+        <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="3 9 3 15 7 15 12 20 12 4 7 9 3 9" fill="currentColor" stroke="none"></polygon>
+            <line x1="16" y1="9" x2="22" y2="15"></line>
+            <line x1="22" y1="9" x2="16" y2="15"></line>
+        </svg>
+    </button>
+
+    <div id="layer-1" class="fullscreen-layer clickable">
+        <div class="intro-text">
+            <p class="intro-top">DEAR</p>
+            <h1 class="intro-names" id="guest-name-display">Friends &amp; Family</h1>
+            <p class="intro-top intro-bottom">YOU'RE INVITED TO</p>
+        </div>
+
+        <div class="envelope-wrapper">
+            <img src="envelope.png" alt="Wedding Invitation Envelope" class="envelope-img">
+            <img class="envelope-overlay wax-seal" src="stamp.png" alt="Wax Seal">
+            <img class="envelope-overlay bride-sticker" src="bride sticker.png" alt="Bride Sticker">
+            <img class="envelope-overlay groom-sticker" src="groom sticker.png" alt="Groom Sticker">
+        </div>
+        <p class="click-text">CLICK ENVELOPE TO OPEN</p>
+    </div>
+
+    <div id="layer-2" class="fullscreen-layer clickable" style="display: none; opacity: 0;">
+        <div class="layer-2-header">
+            <p class="header-top">WE ARE GETTING MARRIED</p>
+            <h1 class="header-names">Raynald &amp; Regina</h1>
+        </div>
+        <div class="open-envelope-wrapper">
+            <img src="env2 - Copy.png" class="env-part env-back" alt="Envelope Back">
+            <img src="3 - Copy.png" class="tucked-film" alt="Photo Film">
+            <img src="3 - Copy (3).png" class="tucked-card" alt="Save the Date">
+            <img src="env2.png" class="env-part env-front" alt="Envelope Front">
+        </div>
+        <p class="click-text">CLICK TO READ MORE</p>
+    </div>
+
+    <div id="main-content">
+        
+        <h2 class="section-title">Main Character Energy</h2>
+        <p class="section-subtitle">Here Comes the Groom...</p>
+
+        <div class="profile-card groom-card pop-element">
+            <div class="card-content">
+                <table class="detail-table">
+                    <tr><td class="label">NAME:</td><td class="value">dr. RAYNALD GERALD BAGY</td></tr>
+                    <tr><td class="label">ABOUT:</td><td class="value">PROFESSIONAL SLEEPER</td></tr>
+                    <tr><td class="label">DAD:</td><td class="value">Ir. DJONI BAGY, MT</td></tr>
+                    <tr><td class="label">MOM:</td><td class="value"> LIDYA LAORITAN, SE</td></tr>
+                </table>
+                <div class="typewriter-text" data-text="Laughs at the most random jokes, reliable. He is fast-moving, efficient, and prefers not to wait long. Sleeping is his favorite hobby."></div>
+            </div>
+            <div class="vertical-name">RAYN</div>
+            <div class="polaroid-wrapper">
+                <div class="duct-tape"></div>
+                <img src="WhatsApp Image 2026-06-19 at 10.43.33 AM.jpeg" alt="Groom">
+            </div>
+        </div>
+
+        <p class="section-subtitle">Here Comes the Bride...</p>
+
+        <div class="profile-card bride-card pop-element">
+            <div class="card-content">
+                <table class="detail-table">
+                    <tr><td class="label">NAME:</td><td class="value">REGINA BERNANDITA LAHOPE, S.Ak</td></tr>
+                    <tr><td class="label">ABOUT:</td><td class="value">PETITE CUTIE</td></tr>
+                    <tr><td class="label">DAD:</td><td class="value">FERRY LAHOPE</td></tr>
+                    <tr><td class="label">MOM:</td><td class="value">LIKE TJANDRA</td></tr>
+                </table>
+                <div class="typewriter-text" data-text="Beautiful, cheerful, petite girl with an adorable personality and lovely smile. Her voice often seems to reach higher than her height, filling every moment with energy and laughter. She also has a great sense of fashion; effortlessly combining charm and style in a way that makes her stand out wherever she goes."></div>
+            </div>
+            <div class="vertical-name">BREGI</div>
+            <div class="polaroid-wrapper">
+                <div class="duct-tape"></div>
+                <img src="WhatsApp Image 2026-06-19 at 10.43.33 AM - Copy.jpeg" alt="Bride">
+            </div>
+        </div>
+
+        <h2 class="section-title">Details of the Wedding</h2>
+        <div class="info-card pop-element">
+            <h3>Wedding Ceremony</h3>
+            <p class="event-when">Saturday, 12th September 2026</p>
+            <p class="event-where">14.00 WITA · Gereja Kristus Raja Kotamobagu</p>
+            <a class="map-link" href="https://maps.app.goo.gl/3w5aoncnqMW81TENA" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                View on Maps
+            </a>
+            <hr class="event-divider">
+            <h3>Reception</h3>
+            <p class="event-when">19.00 WITA</p>
+            <p class="event-where">Hotel Sutan Raja Kotamobagu</p>
+            <a class="map-link" href="https://maps.app.goo.gl/c3Q9uNP7ZVjuZAuQ6" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                View on Maps
+            </a>
+        </div>
+
+        <h2 class="section-title">Wedding Gift</h2>
+        <div class="info-card pop-element">
+            <p class="gift-lead">Your presence at our celebration is the greatest gift of all.</p>
+            <p class="gift-note">We can’t wait to celebrate this beautiful moment with the people we love most. Save the date and lets create a day filled with joy, laughter and everlasting memories together. However, if you wish to honor us, the contribution can be made via the account below to help us begin our next chapter together.</p>
+            <div class="qr-container">
+                <img src="4 - Copy.png" alt="QR Code" style="width: 150px;">
+                <p><strong>BCA: 0262945951</strong><br>A/N Bernandita Regina</p>
+            </div>
+            <div class="gift-script">With love &amp; gratitude</div>
+        </div>
+
+        <!-- SEE YOU THERE: now pure text using Droid Serif (angled, overlapping) -->
+        <div class="see-you-there pop-element">
+            <span class="syt-small">SEE <span class="syt-you">YOU</span></span>
+            <span class="syt-large">THERE</span>
+        </div>
+        
+        <div class="video-wrapper pop-element">
+            <video src="Project Name 6.mp4" controls playsinline autoplay></video>
+        </div>
+
+        <div class="photobooth-wrapper pop-element">
+            <div class="photobooth-container">
+                <div class="printer-slot"><div class="printer-slit"></div></div>
+                <div class="strip-mask">
+                    <div class="photo-strip">
+                        <div class="photo-grid">
+                            <img src="1.jpeg" alt="Photo 1" loading="lazy" decoding="async">
+                            <img src="2.jpeg" alt="Photo 2" loading="lazy" decoding="async">
+                            <img src="3.jpeg" alt="Photo 3" loading="lazy" decoding="async">
+                            <img src="4.jpeg" alt="Photo 4" loading="lazy" decoding="async">
+                            <img src="5.jpeg" alt="Photo 5" loading="lazy" decoding="async">
+                            <img src="6.jpeg" alt="Photo 6" loading="lazy" decoding="async">
+                            <img src="7.jpeg" alt="Photo 7" loading="lazy" decoding="async">
+                            <img src="8.jpeg" alt="Photo 8" loading="lazy" decoding="async">
+                        </div>
+                        <div class="strip-footer">
+                            <span class="strip-names">Raynald & Regina</span>
+                            <span class="strip-date">12.09.2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="open-layer-4" class="open-guestbook-btn pop-element">Leave a Message</button>
+
+    </div>
+
+    <div id="layer-4" class="fullscreen-layer" style="display: none; opacity: 0;">
+        <div class="guestbook-container">
+            <button id="close-layer-4" class="back-btn">← Back to Wedding Details</button>
+            
+            <div class="guestbook-header">
+                <h1 class="guestbook-title">Guestbook</h1>
+                <p class="guestbook-sub">Leave a wish for the happy couple</p>
+            </div>
+            
+            <div class="chat-history" id="chat-history">
+                <div class="gb-placeholder">Loading messages…</div>
+            </div>
+
+            <div class="guestbook-meta">
+                <span class="guestbook-status" id="gb-status">&nbsp;</span>
+                <span class="guestbook-count" id="gb-count"></span>
+            </div>
+
+            <form class="message-form" id="guestbook-form">
+                <input type="text" id="guest-name" placeholder="Your Name" maxlength="40" required>
+                <textarea id="guest-msg" placeholder="Write a wish or a funny memory..." maxlength="280" required></textarea>
+                <div class="form-extras">
+                    <div class="emoji-row">
+                        <button type="button" class="emoji-insert" data-emoji="❤️">❤️</button>
+                        <button type="button" class="emoji-insert" data-emoji="🎉">🎉</button>
+                        <button type="button" class="emoji-insert" data-emoji="🥹">🥹</button>
+                        <button type="button" class="emoji-insert" data-emoji="🥂">🥂</button>
+                        <button type="button" class="emoji-insert" data-emoji="💍">💍</button>
+                    </div>
+                    <span class="char-counter" id="char-counter">0 / 280</span>
+                </div>
+                <button type="submit" class="send-btn" id="send-btn">SEND MESSAGE</button>
+            </form>
+        </div>
+    </div>
+
+<script>
+    /* --- PERSONALIZED GUEST NAME (from URL ?to=Name) --- */
+    (function () {
+        const params = new URLSearchParams(window.location.search);
+        const raw = (params.get('to') || '').trim();
+        if (raw) {
+            // strip any HTML, cap length to keep layout sane
+            const clean = raw.replace(/[<>]/g, '').slice(0, 60);
+            const el = document.getElementById('guest-name-display');
+            if (el) el.textContent = clean;
+        }
+    })();
+
+    const layer1 = document.getElementById('layer-1');
+    const layer2 = document.getElementById('layer-2');
+    const mainContent = document.getElementById('main-content');
+    const layer4 = document.getElementById('layer-4');
+    const btnOpenGuestbook = document.getElementById('open-layer-4');
+    const btnCloseGuestbook = document.getElementById('close-layer-4');
+    
+    const bgMusic = document.getElementById('bg-music');
+    const musicToggle = document.getElementById('music-toggle');
+
+    function startMusic() {
+        if (!bgMusic) return;
+        bgMusic.volume = 0;
+        const playPromise = bgMusic.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                musicToggle.style.display = 'flex';
+                fadeInMusic();
+            }).catch(() => {
+                musicToggle.style.display = 'flex';
+                musicToggle.classList.add('is-muted');
+            });
+        }
+    }
+
+    function fadeInMusic() {
+        const target = 0.6;
+        const step = 0.03;
+        const id = setInterval(() => {
+            bgMusic.volume = Math.min(target, bgMusic.volume + step);
+            if (bgMusic.volume >= target) clearInterval(id);
+        }, 80);
+    }
+
+    musicToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (bgMusic.paused) {
+            bgMusic.play();
+            musicToggle.classList.remove('is-muted');
+        } else if (bgMusic.muted) {
+            bgMusic.muted = false;
+            musicToggle.classList.remove('is-muted');
+        } else {
+            bgMusic.muted = true;
+            musicToggle.classList.add('is-muted');
+        }
+    });
+
+    layer1.addEventListener('click', () => {
+        layer1.classList.add('opening');
+        layer1.style.opacity = 0; 
+        startMusic();
+        
+        setTimeout(() => {
+            layer1.style.display = 'none'; 
+            layer2.style.display = 'flex'; 
+            setTimeout(() => {
+                layer2.style.opacity = 1; 
+                layer2.classList.add('layer-2-active');
+            }, 50); 
+        }, 800); 
+    });
+
+    layer2.addEventListener('click', () => {
+        layer2.style.opacity = 0; 
+        setTimeout(() => {
+            layer2.style.display = 'none'; 
+            mainContent.style.display = 'block'; 
+            window.scrollTo(0,0); 
+            initScrollAnimations(); 
+        }, 800);
+    });
+
+    document.addEventListener('play', (e) => {
+        if (e.target.tagName === 'VIDEO' && bgMusic && !bgMusic.paused) {
+            bgMusic.muted = true;
+            musicToggle.classList.add('is-muted');
+        }
+    }, true);
+
+    function initScrollAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    const typewriters = entry.target.querySelectorAll('.typewriter-text');
+                    typewriters.forEach(tw => {
+                        if (!tw.classList.contains('typed')) {
+                            typeText(tw, tw.getAttribute('data-text'));
+                            tw.classList.add('typed');
+                        }
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.pop-element').forEach(el => { observer.observe(el); });
+    }
+
+    function typeText(element, text) {
+        let i = 0; element.innerHTML = '';
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i); i++;
+                setTimeout(type, 20); 
+            } else {
+                fitText(element);
+            }
+        }
+        type();
+    }
+
+    function fitText(element) {
+        let size = parseFloat(getComputedStyle(element).fontSize);
+        let guard = 0;
+        while (element.scrollHeight > element.clientHeight + 1 && size > 7 && guard < 60) {
+            size -= 0.5;
+            element.style.fontSize = size + 'px';
+            guard++;
+        }
+    }
+
+    /* ============================================================
+       LAYER 4 — SHARED GUESTBOOK (Supabase backend)
+       ------------------------------------------------------------
+       SETUP (do this once, see the notes I gave you):
+       1. Create a Supabase project (free).
+       2. Run the SQL I provided to create the `guestbook` table.
+       3. Paste your Project URL and anon public key below.
+       ============================================================ */
+    const SUPABASE_URL  = 'https://ebildkpsgnxbqapjiogu.supabase.co';      // e.g. https://abcxyz.supabase.co
+    const SUPABASE_ANON  = 'sb_publishable_xWqhnrTsbf6pimQZpY0dYw_Rx4PjrCE'; // the public "anon" key
+    const REST = () => `${SUPABASE_URL}/rest/v1/guestbook`;
+    const HEADERS = () => ({
+        'apikey': SUPABASE_ANON,
+        'Authorization': `Bearer ${SUPABASE_ANON}`,
+        'Content-Type': 'application/json'
+    });
+    const SUPABASE_READY = SUPABASE_URL.startsWith('http') && SUPABASE_ANON.length > 20;
+
+    const REACTIONS = ['❤️','🎉','🥹','🥂'];
+    const guestbookForm = document.getElementById('guestbook-form');
+    const chatHistory   = document.getElementById('chat-history');
+    const gbStatus      = document.getElementById('gb-status');
+    const gbCount       = document.getElementById('gb-count');
+    const sendBtn       = document.getElementById('send-btn');
+    const guestMsg      = document.getElementById('guest-msg');
+    const guestName     = document.getElementById('guest-name');
+    const charCounter   = document.getElementById('char-counter');
+
+    let pollTimer = null;
+    let lastRenderHash = '';
+
+    // Remember which messages THIS guest already reacted to (per-browser)
+    function myReactions() { return JSON.parse(localStorage.getItem('gbMyReactions') || '{}'); }
+    function setMyReaction(id, emoji) {
+        const r = myReactions(); r[id] = emoji; localStorage.setItem('gbMyReactions', JSON.stringify(r));
+    }
+    function clearMyReaction(id) {
+        const r = myReactions(); delete r[id]; localStorage.setItem('gbMyReactions', JSON.stringify(r));
+    }
+    // Remember this guest's name for convenience
+    if (localStorage.getItem('gbMyName')) guestName.value = localStorage.getItem('gbMyName');
+
+    /* ---- Open / close ---- */
+    btnOpenGuestbook.addEventListener('click', () => {
+        layer4.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => { layer4.style.opacity = 1; }, 50);
+        loadMessages();
+        if (SUPABASE_READY) pollTimer = setInterval(loadMessages, 7000); // light auto-refresh
+    });
+    btnCloseGuestbook.addEventListener('click', () => {
+        layer4.style.opacity = 0;
+        document.body.style.overflow = 'auto';
+        if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+        setTimeout(() => { layer4.style.display = 'none'; }, 800);
+    });
+
+    /* ---- Char counter ---- */
+    guestMsg.addEventListener('input', () => {
+        const len = guestMsg.value.length;
+        charCounter.textContent = `${len} / 280`;
+        charCounter.classList.toggle('near-limit', len > 250);
+    });
+
+    /* ---- Emoji quick-insert ---- */
+    document.querySelectorAll('.emoji-insert').forEach(btn => {
+        btn.addEventListener('click', () => {
+            guestMsg.value += btn.dataset.emoji;
+            guestMsg.dispatchEvent(new Event('input'));
+            guestMsg.focus();
+        });
+    });
+
+    /* ---- Submit a new message ---- */
+    guestbookForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = guestName.value.trim();
+        const message = guestMsg.value.trim();
+        if (!name || !message) return;
+
+        localStorage.setItem('gbMyName', name);
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'SENDING…';
+
+        if (!SUPABASE_READY) {
+            // Fallback so the page still works before Supabase is connected
+            let local = JSON.parse(localStorage.getItem('gbLocal') || '[]');
+            local.push({ id: 'local-' + Date.now(), name, message, created_at: new Date().toISOString(), reactions: {} });
+            localStorage.setItem('gbLocal', JSON.stringify(local));
+            finishSend();
+            renderLocal();
+            return;
+        }
+
+        try {
+            const res = await fetch(REST(), {
+                method: 'POST',
+                headers: { ...HEADERS(), 'Prefer': 'return=minimal' },
+                body: JSON.stringify({ name, message, reactions: {} })
+            });
+            if (!res.ok) throw new Error('post failed');
+            finishSend();
+            burstConfetti();
+            await loadMessages();
+        } catch (err) {
+            gbStatus.textContent = 'Could not send — check connection';
+            sendBtn.disabled = false;
+            sendBtn.textContent = 'SEND MESSAGE';
+        }
+    });
+
+    function finishSend() {
+        guestMsg.value = '';
+        charCounter.textContent = '0 / 280';
+        charCounter.classList.remove('near-limit');
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'SEND MESSAGE';
+        burstConfetti();
+    }
+
+    /* ---- Load + render messages ---- */
+    async function loadMessages() {
+        if (!SUPABASE_READY) { renderLocal(); return; }
+        try {
+            gbStatus.textContent = '';
+            const res = await fetch(`${REST()}?select=*&order=created_at.asc`, { headers: HEADERS() });
+            if (!res.ok) throw new Error('fetch failed');
+            const rows = await res.json();
+            renderMessages(rows);
+        } catch (err) {
+            gbStatus.textContent = 'Offline — showing your messages';
+            renderLocal();
+        }
+    }
+
+    function renderLocal() {
+        const local = JSON.parse(localStorage.getItem('gbLocal') || '[]');
+        renderMessages(local, true);
+    }
+
+    function renderMessages(rows, isLocal = false) {
+        // avoid needless re-render flicker
+        const hash = JSON.stringify(rows.map(r => [r.id, r.reactions]));
+        if (hash === lastRenderHash && !isLocal) { return; }
+        lastRenderHash = hash;
+
+        const wasNearBottom = chatHistory.scrollHeight - chatHistory.scrollTop - chatHistory.clientHeight < 80;
+
+        // Always-present welcome bubble from the couple
+        let html = `
+            <div class="chat-bubble">
+                <div class="chat-name">Raynald &amp; Regina</div>
+                <div class="chat-message">Thank you for visiting! We can't wait to see you. Please leave a message below! ❤️</div>
+            </div>`;
+
+        if (!rows.length) {
+            html += `<div class="gb-placeholder">Be the first to leave a wish 💌</div>`;
+        }
+
+        const mine = myReactions();
+        rows.forEach(r => {
+            const reactions = r.reactions || {};
+            const reactHtml = REACTIONS.map(em => {
+                const count = reactions[em] || 0;
+                const active = mine[r.id] === em ? ' reacted' : '';
+                const countSpan = count > 0 ? `<span class="r-count">${count}</span>` : '';
+                return `<button class="reaction-btn${active}" data-id="${r.id}" data-emoji="${em}">${em}${countSpan}</button>`;
+            }).join('');
+
+            html += `
+                <div class="chat-bubble">
+                    <div class="chat-name">${escapeHTML(r.name)} <span class="chat-time">${timeAgo(r.created_at)}</span></div>
+                    <div class="chat-message">${escapeHTML(r.message)}</div>
+                    <div class="reaction-row">${reactHtml}</div>
+                </div>`;
+        });
+
+        chatHistory.innerHTML = html;
+
+        // counter
+        gbCount.textContent = rows.length ? `${rows.length} ${rows.length === 1 ? 'wish' : 'wishes'} 💌` : '';
+
+        // wire reaction buttons
+        chatHistory.querySelectorAll('.reaction-btn').forEach(btn => {
+            btn.addEventListener('click', () => toggleReaction(btn.dataset.id, btn.dataset.emoji, rows));
+        });
+
+        if (wasNearBottom) chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    /* ---- Reactions ---- */
+    async function toggleReaction(id, emoji, rows) {
+        const row = rows.find(r => String(r.id) === String(id));
+        if (!row) return;
+        const reactions = { ...(row.reactions || {}) };
+        const mine = myReactions();
+        const prev = mine[id];
+
+        // one reaction per guest per message: remove old, add new (or toggle off)
+        if (prev === emoji) {
+            reactions[emoji] = Math.max(0, (reactions[emoji] || 1) - 1);
+            clearMyReaction(id);
+        } else {
+            if (prev) reactions[prev] = Math.max(0, (reactions[prev] || 1) - 1);
+            reactions[emoji] = (reactions[emoji] || 0) + 1;
+            setMyReaction(id, emoji);
+        }
+        row.reactions = reactions;
+        renderMessages(rows, true); // optimistic
+
+        if (!SUPABASE_READY) {
+            if (String(id).startsWith('local-')) {
+                const local = JSON.parse(localStorage.getItem('gbLocal') || '[]');
+                const t = local.find(m => m.id === id); if (t) t.reactions = reactions;
+                localStorage.setItem('gbLocal', JSON.stringify(local));
+            }
+            return;
+        }
+        try {
+            await fetch(`${REST()}?id=eq.${id}`, {
+                method: 'PATCH',
+                headers: { ...HEADERS(), 'Prefer': 'return=minimal' },
+                body: JSON.stringify({ reactions })
+            });
+        } catch (err) { /* optimistic UI already updated */ }
+    }
+
+    /* ---- Helpers ---- */
+    function timeAgo(iso) {
+        if (!iso) return '';
+        const d = new Date(iso); const diff = (Date.now() - d.getTime()) / 1000;
+        if (diff < 60) return 'just now';
+        if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+        if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+        if (diff < 604800) return Math.floor(diff/86400) + 'd ago';
+        return d.toLocaleDateString();
+    }
+
+    function burstConfetti() {
+        const colors = ['#580f1c', '#fdfbf7', '#c98b9a', '#e8c9a0', '#8a1c30'];
+        const n = 60;
+        for (let i = 0; i < n; i++) {
+            const piece = document.createElement('div');
+            piece.className = 'confetti-piece';
+            piece.style.left = Math.random() * 100 + 'vw';
+            piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+            piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            const dur = 1800 + Math.random() * 1400;
+            const xDrift = (Math.random() - 0.5) * 240;
+            const rot = Math.random() * 720;
+            document.body.appendChild(piece);
+            piece.animate([
+                { transform: `translate(0,0) rotate(0deg)`, opacity: 1 },
+                { transform: `translate(${xDrift}px, ${window.innerHeight + 60}px) rotate(${rot}deg)`, opacity: 0.9 }
+            ], { duration: dur, easing: 'cubic-bezier(0.2,0.6,0.4,1)' });
+            setTimeout(() => piece.remove(), dur);
+        }
+    }
+
+    function escapeHTML(str) {
+        return String(str).replace(/[&<>'"]/g,
+            tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+        );
+    }
+</script>
+</body>
+</html>
