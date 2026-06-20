@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- BUILD v3 — events emphasis, bio not blocked, spacing fixes -->
+<!-- BUILD v4 — date as header, time emphasis, photo lower -->
 <title>The Wedding of Raynald & Regina</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Courier+Prime:wght@400;700&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400..700;1,400..700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap');
@@ -204,7 +204,7 @@
     .vertical-name { position: absolute; bottom: 24%; font-family: var(--font-display); font-size: clamp(1.6rem, 9cqw, 3rem); color: var(--cabernet-red); writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: 0.08em; font-weight: 500; z-index: 6; }
     .groom-card .vertical-name { left: 16%; } .bride-card .vertical-name { right: 16%; }
     
-    .polaroid-wrapper { position: absolute; bottom: 7%; width: 37%; background: #fff; padding: 5% 5% 14% 5%; box-shadow: 2px 8px 20px rgba(0,0,0,0.4); z-index: 10; }
+    .polaroid-wrapper { position: absolute; bottom: 3%; width: 37%; background: #fff; padding: 5% 5% 14% 5%; box-shadow: 2px 8px 20px rgba(0,0,0,0.4); z-index: 10; }
     .groom-card .polaroid-wrapper { right: 12%; transform: rotate(5deg); } .bride-card .polaroid-wrapper { left: 12%; transform: rotate(-4deg); }
     .polaroid-wrapper img { width: 100%; display: block; background-color: #eee; aspect-ratio: 1/1; object-fit: cover; }
     
@@ -219,6 +219,8 @@
     /* date/time as the focal point */
     .info-card .event-when { font-family: var(--font-display); font-weight: 600; font-size: 2rem; line-height: 1.25; margin-bottom: 6px; color: var(--cabernet-red); }
     .info-card .event-date { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.5rem, 6.5vw, 2rem); line-height: 1.2; margin-bottom: 4px; color: var(--cabernet-red); }
+    .info-card .event-date-header { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.7rem, 7vw, 2.2rem); line-height: 1.2; margin-bottom: 6px; color: var(--cabernet-red); text-align: center; }
+    .info-card .event-date-sub { font-family: var(--font-body); font-weight: 300; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.7; margin-bottom: 30px; color: var(--cabernet-red); }
     .info-card .event-time { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 7.5vw, 2.3rem); line-height: 1.1; margin-bottom: 10px; color: var(--cabernet-red); letter-spacing: 0.01em; }
     .info-card .event-venue { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(1rem, 4vw, 1.15rem); line-height: 1.4; }
     .info-card .event-where { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1.15rem; line-height: 1.4; }
@@ -489,8 +491,9 @@
 
         <h2 class="section-title">Details of the Wedding</h2>
         <div class="info-card pop-element">
+            <p class="event-date-header">Saturday, 12th September 2026</p>
+            <p class="event-date-sub">Save the Date</p>
             <h3>Wedding Ceremony</h3>
-            <p class="event-date">Saturday, 12th September 2026</p>
             <p class="event-time">14.00 WITA</p>
             <p class="event-venue">Gereja Kristus Raja Kotamobagu</p>
             <a class="map-link" href="https://maps.app.goo.gl/3w5aoncnqMW81TENA" target="_blank" rel="noopener">
@@ -499,7 +502,6 @@
             </a>
             <hr class="event-divider">
             <h3>Reception</h3>
-            <p class="event-date">Saturday, 12th September 2026</p>
             <p class="event-time">19.00 WITA</p>
             <p class="event-venue">Hotel Sutan Raja Kotamobagu</p>
             <a class="map-link" href="https://maps.app.goo.gl/c3Q9uNP7ZVjuZAuQ6" target="_blank" rel="noopener">
