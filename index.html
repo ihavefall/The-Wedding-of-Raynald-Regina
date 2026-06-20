@@ -122,7 +122,7 @@
     /* --- MAIN CONTENT --- */
     #main-content { display: none; max-width: 800px; margin: 0 auto; padding: 40px 20px; background-color: var(--cabernet-red); }
 
-    .section-title { text-align: center; margin: 70px 0 28px; font-family: var(--font-display); font-weight: 500; font-size: 2.4rem; letter-spacing: 0.01em; }
+    .section-title { text-align: center; margin: 70px 0 28px; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.7rem, 7.5vw, 2.4rem); letter-spacing: 0.01em; white-space: nowrap; }
     .section-subtitle { text-align: center; margin-top: -14px; margin-bottom: 34px; font-family: var(--font-body); font-weight: 300; font-size: 0.95rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.85; }
 
     /* --- SEE YOU THERE (TEXT VERSION, DROID SERIF, ANGLED) --- */
@@ -192,6 +192,7 @@
     .detail-table { font-family: var(--font-body); width: 100%; margin-bottom: 5%; border-collapse: separate; border-spacing: 0 1.4%; font-size: clamp(0.66rem, 3.1cqw, 0.9rem); }
     .detail-table td.label { width: 18%; font-weight: 600; letter-spacing: 0.04em; vertical-align: middle; font-size: 0.82em; text-transform: uppercase; opacity: 0.7; }
     .detail-table td.value { border: none; border-bottom: 1px solid rgba(51,51,51,0.25); padding: 4px 6px; background-color: transparent; font-weight: 400; }
+    .detail-table td.value.name-value { white-space: nowrap; font-size: clamp(0.58rem, 2.7cqw, 0.82rem); }
     
     .typewriter-text { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: clamp(0.92rem, 4cqw, 1.25rem); line-height: 1.5; flex: 1 1 auto; min-height: 0; overflow: hidden; color: #2c1a1a; }
     
@@ -251,7 +252,7 @@
     .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .photo-grid img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 2px; filter: contrast(1.1) brightness(0.95); transform: translateZ(0); }
     .strip-footer { text-align: center; margin-top: 25px; margin-bottom: 10px; color: var(--paper-white); display: flex; flex-direction: column; gap: 5px; }
-    .strip-names { font-family: 'Pinyon Script', cursive; font-size: 2.3rem; line-height: 1; }
+    .strip-names { font-family: 'Pinyon Script', cursive; font-size: clamp(1.7rem, 8vw, 2.3rem); line-height: 1; white-space: nowrap; }
     .strip-date { font-family: 'Courier Prime', monospace; font-size: 0.9rem; letter-spacing: 3px; }
 
     /* --- LAYER 4: GUESTBOOK STYLING --- */
@@ -379,6 +380,14 @@
         .intro-names { font-size: 3.5rem; }
         .intro-top { font-size: 0.9rem; letter-spacing: 4px; }
         #layer-2 { padding-top: 4vh; }
+
+        /* Layer 1: shrink envelope so stickers stay on-screen */
+        #layer-1 .envelope-wrapper { width: 78%; }
+        .intro-text { margin-bottom: 28px; }
+        /* Pull floating stickers inward so they don't get clipped at screen edges */
+        .bride-sticker { width: 64px; left: -18px; top: 26%; }
+        .groom-sticker { width: 64px; right: -18px; bottom: 18%; }
+        .wax-seal { width: 70px; }
     }
 </style>
 </head>
@@ -437,7 +446,7 @@
         <div class="profile-card groom-card pop-element">
             <div class="card-content">
                 <table class="detail-table">
-                    <tr><td class="label">NAME:</td><td class="value">dr. RAYNALD GERALD BAGY</td></tr>
+                    <tr><td class="label">NAME:</td><td class="value name-value">dr. RAYNALD GERALD BAGY</td></tr>
                     <tr><td class="label">ABOUT:</td><td class="value">PROFESSIONAL SLEEPER</td></tr>
                     <tr><td class="label">DAD:</td><td class="value">Ir. DJONI BAGY, MT</td></tr>
                     <tr><td class="label">MOM:</td><td class="value"> LIDYA LAORITAN, SE</td></tr>
@@ -456,7 +465,7 @@
         <div class="profile-card bride-card pop-element">
             <div class="card-content">
                 <table class="detail-table">
-                    <tr><td class="label">NAME:</td><td class="value">REGINA BERNANDITA LAHOPE, S.Ak</td></tr>
+                    <tr><td class="label">NAME:</td><td class="value name-value">REGINA BERNANDITA LAHOPE, S.Ak</td></tr>
                     <tr><td class="label">ABOUT:</td><td class="value">PETITE CUTIE</td></tr>
                     <tr><td class="label">DAD:</td><td class="value">FERRY LAHOPE</td></tr>
                     <tr><td class="label">MOM:</td><td class="value">LIKE TJANDRA</td></tr>
