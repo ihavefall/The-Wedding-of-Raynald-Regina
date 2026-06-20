@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- BUILD v13 — faster load: defer audio/video, lazy images, prioritize first paint -->
+<!-- BUILD v14 — accessibility: keyboard envelope, aria labels -->
 <title>The Wedding of Raynald &amp; Regina · 12.09.2026</title>
 <meta name="description" content="You're invited to celebrate the wedding of Raynald & Regina on Saturday, 12th September 2026 in Kotamobagu. Tap to open your invitation.">
 
@@ -475,7 +475,7 @@
         </svg>
     </button>
 
-    <div id="layer-1" class="fullscreen-layer clickable">
+    <div id="layer-1" class="fullscreen-layer clickable" role="button" tabindex="0" aria-label="Open the wedding invitation envelope">
         <div class="intro-text">
             <p class="intro-top">DEAR</p>
             <h1 class="intro-names" id="guest-name-display">Friends &amp; Family</h1>
@@ -491,7 +491,7 @@
         <p class="click-text">CLICK ENVELOPE TO OPEN</p>
     </div>
 
-    <div id="layer-2" class="fullscreen-layer clickable" style="display: none; opacity: 0;">
+    <div id="layer-2" class="fullscreen-layer clickable" style="display: none; opacity: 0;" role="button" tabindex="0" aria-label="Continue to read the wedding details">
         <div class="layer-2-header">
             <p class="header-top">WE ARE GETTING MARRIED</p>
             <h1 class="header-names">Raynald &amp; Regina</h1>
@@ -657,11 +657,11 @@
                 <textarea id="guest-msg" placeholder="Write a wish or a funny memory..." maxlength="280" required></textarea>
                 <div class="form-extras">
                     <div class="emoji-row">
-                        <button type="button" class="emoji-insert" data-emoji="❤️">❤️</button>
-                        <button type="button" class="emoji-insert" data-emoji="🎉">🎉</button>
-                        <button type="button" class="emoji-insert" data-emoji="🥹">🥹</button>
-                        <button type="button" class="emoji-insert" data-emoji="🥂">🥂</button>
-                        <button type="button" class="emoji-insert" data-emoji="💍">💍</button>
+                        <button type="button" class="emoji-insert" data-emoji="❤️" aria-label="Add heart emoji">❤️</button>
+                        <button type="button" class="emoji-insert" data-emoji="🎉" aria-label="Add party emoji">🎉</button>
+                        <button type="button" class="emoji-insert" data-emoji="🥹" aria-label="Add emotional face emoji">🥹</button>
+                        <button type="button" class="emoji-insert" data-emoji="🥂" aria-label="Add toast emoji">🥂</button>
+                        <button type="button" class="emoji-insert" data-emoji="💍" aria-label="Add ring emoji">💍</button>
                     </div>
                     <span class="char-counter" id="char-counter">0 / 280</span>
                 </div>
@@ -767,6 +767,16 @@
             window.scrollTo(0,0); 
             initScrollAnimations(); 
         }, 800);
+    });
+
+    /* Keyboard access: let Enter or Space open the envelope layers, same as a tap. */
+    [layer1, layer2].forEach(layer => {
+        layer.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                e.preventDefault();
+                layer.click();
+            }
+        });
     });
 
     /* Video is silent (audio stripped), so background music should keep playing over it.
@@ -1084,7 +1094,7 @@
                 const count = reactions[em] || 0;
                 const active = mine[r.id] === em ? ' reacted' : '';
                 const countSpan = count > 0 ? `<span class="r-count">${count}</span>` : '';
-                return `<button class="reaction-btn${active}" data-id="${r.id}" data-emoji="${em}">${em}${countSpan}</button>`;
+                return `<button class="reaction-btn${active}" data-id="${r.id}" data-emoji="${em}" aria-label="React with ${em}" aria-pressed="${mine[r.id] === em ? 'true' : 'false'}">${em}${countSpan}</button>`;
             }).join('');
 
             html += `
