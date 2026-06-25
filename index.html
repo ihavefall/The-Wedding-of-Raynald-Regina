@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- BUILD v15 — balanced spacing around profile cards & subtitle -->
+<!-- BUILD v16 — smaller photo strip + admin replies in guestbook -->
 <title>The Wedding of Raynald &amp; Regina · 12.09.2026</title>
 <meta name="description" content="You're invited to celebrate the wedding of Raynald & Regina on Saturday, 12th September 2026 in Kotamobagu. Tap to open your invitation.">
 
@@ -302,20 +302,21 @@
     .video-wrapper video { width: 300px; max-width: 100%; aspect-ratio: 9 / 16; border-radius: 4px; display: block; background-color: #000; object-fit: cover; }
 
     /* --- REAL PHOTOBOOTH EFFECT --- */
-    .photobooth-wrapper { background-color: #fcf1dd; padding: 40px 20px 60px; border-radius: 12px; margin-top: 80px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    /* Photo strip made smaller: container narrowed from 380px -> 300px */
+    .photobooth-wrapper { background-color: #fcf1dd; padding: 36px 20px 50px; border-radius: 12px; margin-top: 80px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
     .photobooth-wrapper.visible { opacity: 1; transform: translateY(0); }
-    .photobooth-container { position: relative; width: 100%; max-width: 380px; margin: 0 auto; }
-    .printer-slot { width: 100%; height: 40px; background: linear-gradient(to bottom, #444, #1a1a1a); border-radius: 20px; position: relative; z-index: 10; box-shadow: 0 8px 15px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; margin-bottom: -8px; }
-    .printer-slit { width: 90%; height: 12px; background: #000; border-radius: 10px; box-shadow: inset 0 4px 6px rgba(0,0,0,0.8); }
-    .strip-mask { width: 85%; margin: 0 auto; overflow: hidden; position: relative; z-index: 5; padding-bottom: 25px; }
-    .photo-strip { background-color: var(--cabernet-red); padding: 15px; box-shadow: 0 15px 25px rgba(0,0,0,0.4); transform: translate3d(0,-100%,0); will-change: transform; backface-visibility: hidden; }
+    .photobooth-container { position: relative; width: 100%; max-width: 300px; margin: 0 auto; }
+    .printer-slot { width: 100%; height: 34px; background: linear-gradient(to bottom, #444, #1a1a1a); border-radius: 20px; position: relative; z-index: 10; box-shadow: 0 8px 15px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; margin-bottom: -8px; }
+    .printer-slit { width: 90%; height: 10px; background: #000; border-radius: 10px; box-shadow: inset 0 4px 6px rgba(0,0,0,0.8); }
+    .strip-mask { width: 80%; margin: 0 auto; overflow: hidden; position: relative; z-index: 5; padding-bottom: 25px; }
+    .photo-strip { background-color: var(--cabernet-red); padding: 13px; box-shadow: 0 15px 25px rgba(0,0,0,0.4); transform: translate3d(0,-100%,0); will-change: transform; backface-visibility: hidden; }
     .photobooth-wrapper.visible .photo-strip { animation: printOut 2.4s cubic-bezier(0.33, 0, 0.2, 1) forwards; animation-delay: 0.4s; }
     @keyframes printOut { 0% { transform: translate3d(0,-100%,0); } 100% { transform: translate3d(0,0,0); } }
-    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .photo-grid img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 2px; filter: contrast(1.1) brightness(0.95); transform: translateZ(0); }
-    .strip-footer { text-align: center; margin-top: 25px; margin-bottom: 10px; color: var(--paper-white); display: flex; flex-direction: column; gap: 5px; }
-    .strip-names { font-family: 'Pinyon Script', cursive; font-size: clamp(1.7rem, 8vw, 2.3rem); line-height: 1; white-space: nowrap; }
-    .strip-date { font-family: 'Courier Prime', monospace; font-size: 0.9rem; letter-spacing: 3px; }
+    .strip-footer { text-align: center; margin-top: 20px; margin-bottom: 8px; color: var(--paper-white); display: flex; flex-direction: column; gap: 5px; }
+    .strip-names { font-family: 'Pinyon Script', cursive; font-size: clamp(1.5rem, 7vw, 2rem); line-height: 1; white-space: nowrap; }
+    .strip-date { font-family: 'Courier Prime', monospace; font-size: 0.82rem; letter-spacing: 3px; }
 
     /* --- LAYER 4: GUESTBOOK STYLING --- */
     .open-guestbook-btn {
@@ -353,7 +354,11 @@
     .guestbook-header { text-align: center; margin-bottom: 18px; }
     .guestbook-title { font-family: 'Pinyon Script', cursive; color: var(--cabernet-red); font-size: clamp(3.2rem, 14vw, 4.5rem); font-weight: 400; line-height: 1; margin: 0; }
     .guestbook-sub { font-family: var(--font-body); font-weight: 300; font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cabernet-red); opacity: 0.7; margin-top: 6px; }
-    
+
+    /* Small badge shown only when the couple opens the admin link */
+    .admin-badge { display: none; margin-top: 10px; font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper-white); background: var(--cabernet-red); padding: 5px 14px; border-radius: 30px; }
+    body.is-admin .admin-badge { display: inline-block; }
+
     .back-btn {
         background: none; border: none; font-family: var(--font-body); font-size: 0.85rem;
         letter-spacing: 0.05em; color: var(--cabernet-red); cursor: pointer; text-align: left;
@@ -369,14 +374,65 @@
         background: #fff; padding: 15px; border-radius: 15px; border-bottom-left-radius: 2px;
         max-width: 85%; align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .chat-bubble:nth-child(even) {
+    /* Guests' bubbles alternate sides for a chat feel. The couple's own
+       replies use an explicit class so they always sit on the right in
+       the brand colour, regardless of position. */
+    .chat-bubble.guest-bubble:nth-of-type(even) {
         align-self: flex-end; background: var(--cabernet-red); color: var(--paper-white); border-bottom-left-radius: 15px; border-bottom-right-radius: 2px;
     }
 
     .chat-name { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; margin-bottom: 4px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; color: var(--cabernet-red); }
-    .chat-bubble:nth-child(even) .chat-name { color: var(--paper-white); }
+    .chat-bubble.guest-bubble:nth-of-type(even) .chat-name { color: var(--paper-white); }
     .chat-time { font-family: var(--font-body); font-weight: 400; font-size: 0.68rem; letter-spacing: 0.03em; opacity: 0.55; }
     .chat-message { font-family: var(--font-body); font-weight: 300; font-size: 0.98rem; line-height: 1.5; }
+
+    /* --- COUPLE'S REPLY (threaded under a guest message) --- */
+    .reply-thread { margin-top: 12px; padding-left: 14px; border-left: 2px solid rgba(88,15,28,0.25); display: flex; flex-direction: column; gap: 10px; }
+    .chat-bubble.guest-bubble:nth-of-type(even) .reply-thread { border-left-color: rgba(253,251,247,0.45); }
+    .reply-card { background: var(--cabernet-red); color: var(--paper-white); border-radius: 12px; padding: 10px 13px; box-shadow: 0 2px 6px rgba(0,0,0,0.18); }
+    /* When the parent guest bubble is itself the dark one, flip the reply to light so it stays readable */
+    .chat-bubble.guest-bubble:nth-of-type(even) .reply-card { background: var(--paper-white); color: var(--text-dark); }
+    .reply-name { font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; }
+    .reply-name .reply-badge { font-family: var(--font-body); font-weight: 600; font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(253,251,247,0.22); padding: 2px 7px; border-radius: 20px; }
+    .chat-bubble.guest-bubble:nth-of-type(even) .reply-card .reply-badge { background: rgba(88,15,28,0.12); }
+    .reply-time { font-family: var(--font-body); font-weight: 400; font-size: 0.64rem; letter-spacing: 0.03em; opacity: 0.6; }
+    .reply-message { font-family: var(--font-body); font-weight: 300; font-size: 0.92rem; line-height: 1.5; margin-top: 3px; }
+
+    /* Admin-only controls on each message */
+    .admin-controls { margin-top: 10px; display: none; gap: 8px; flex-wrap: wrap; }
+    body.is-admin .admin-controls { display: flex; }
+    .admin-btn {
+        background: transparent; border: 1px solid var(--cabernet-red); color: var(--cabernet-red);
+        font-family: var(--font-body); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em;
+        text-transform: uppercase; padding: 6px 12px; border-radius: 20px; cursor: pointer;
+        transition: all 0.2s ease; -webkit-tap-highlight-color: transparent;
+    }
+    .admin-btn:hover { background: var(--cabernet-red); color: var(--paper-white); }
+    .chat-bubble.guest-bubble:nth-of-type(even) .admin-btn { border-color: rgba(253,251,247,0.7); color: var(--paper-white); }
+    .chat-bubble.guest-bubble:nth-of-type(even) .admin-btn:hover { background: var(--paper-white); color: var(--cabernet-red); }
+    .admin-btn.danger { border-color: #9a3b50; color: #9a3b50; }
+    .admin-btn.danger:hover { background: #9a3b50; color: #fff; }
+
+    /* Inline reply composer (admin) */
+    .reply-composer { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+    .reply-composer textarea {
+        width: 100%; padding: 10px; border: 1px solid #d8d0c4; border-radius: 8px;
+        font-family: var(--font-body); font-weight: 300; font-size: 0.95rem; resize: vertical; min-height: 56px;
+        background: #fff; color: var(--text-dark);
+    }
+    .reply-composer textarea:focus { outline: none; border-color: var(--cabernet-red); }
+    .reply-composer-actions { display: flex; gap: 8px; }
+    .reply-send {
+        background: var(--cabernet-red); color: var(--paper-white); border: none; padding: 8px 16px;
+        border-radius: 20px; font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
+        letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    }
+    .reply-send:disabled { opacity: 0.5; cursor: not-allowed; }
+    .reply-cancel {
+        background: transparent; color: #777; border: 1px solid #ccc; padding: 8px 16px;
+        border-radius: 20px; font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
+        letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    }
 
     /* Reaction row under each bubble */
     .reaction-row { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
@@ -390,8 +446,8 @@
     .reaction-btn .r-count { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; min-width: 8px; }
     .reaction-btn.reacted { background: var(--cabernet-red); color: var(--paper-white); border-color: var(--cabernet-red); }
     /* On the dark (even) bubbles, lighten the reaction chips */
-    .chat-bubble:nth-child(even) .reaction-btn { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.35); color: var(--paper-white); }
-    .chat-bubble:nth-child(even) .reaction-btn.reacted { background: var(--paper-white); color: var(--cabernet-red); border-color: var(--paper-white); }
+    .chat-bubble.guest-bubble:nth-of-type(even) .reaction-btn { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.35); color: var(--paper-white); }
+    .chat-bubble.guest-bubble:nth-of-type(even) .reaction-btn.reacted { background: var(--paper-white); color: var(--cabernet-red); border-color: var(--paper-white); }
 
     /* Status / count line above the form */
     .guestbook-meta {
@@ -641,6 +697,7 @@
             <div class="guestbook-header">
                 <h1 class="guestbook-title">Guestbook</h1>
                 <p class="guestbook-sub">Leave a wish for the happy couple</p>
+                <span class="admin-badge">Couple mode · you can reply</span>
             </div>
             
             <div class="chat-history" id="chat-history">
@@ -922,6 +979,21 @@
        1. Create a Supabase project (free).
        2. Run the SQL I provided to create the `guestbook` table.
        3. Paste your Project URL and anon public key below.
+
+       NEW — COUPLE REPLIES:
+       - The couple can reply to any message. Replies are stored in a
+         `replies` JSON column on each guestbook row.
+       - Reply controls only appear in "couple mode": open the site with
+         ?admin=YOUR_SECRET in the URL (set ADMIN_SECRET below).
+         e.g.  https://your-site/?admin=bregi2026
+         You can bookmark that link. Guests who don't have it never see
+         the reply buttons.
+       - IMPORTANT: this is light protection suited to a wedding guestbook,
+         not real authentication. Anyone who learns the secret could reply.
+         Keep the link private and it's perfectly fine for this use.
+
+       SUPABASE NOTE: if you created the table before adding replies, run:
+         alter table guestbook add column if not exists replies jsonb default '[]'::jsonb;
        ============================================================ */
     const SUPABASE_URL  = 'https://ebildkpsgnxbqapjiogu.supabase.co';      // e.g. https://abcxyz.supabase.co
     const SUPABASE_ANON  = 'sb_publishable_xWqhnrTsbf6pimQZpY0dYw_Rx4PjrCE'; // the public "anon" key
@@ -932,6 +1004,22 @@
         'Content-Type': 'application/json'
     });
     const SUPABASE_READY = SUPABASE_URL.startsWith('http') && SUPABASE_ANON.length > 20;
+
+    /* ---- ADMIN (couple) MODE ----
+       Change this secret to anything you like. Then visit the site with
+       ?admin=THAT_SECRET to unlock replies. */
+    const ADMIN_SECRET = 'bregi2026';
+    const COUPLE_NAME = 'Raynald & Regina';
+    const IS_ADMIN = (function () {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('admin') === ADMIN_SECRET) {
+            try { localStorage.setItem('gbAdmin', '1'); } catch (e) {}
+            return true;
+        }
+        // Stay in admin mode across page navigations on the couple's own device
+        try { return localStorage.getItem('gbAdmin') === '1'; } catch (e) { return false; }
+    })();
+    if (IS_ADMIN) document.body.classList.add('is-admin');
 
     const REACTIONS = ['❤️','🎉','🥹','🥂'];
     const guestbookForm = document.getElementById('guestbook-form');
@@ -945,6 +1033,8 @@
 
     let pollTimer = null;
     let lastRenderHash = '';
+    let latestRows = [];          // keep the most recent data for reply/delete actions
+    let openComposerId = null;    // which message currently has its reply box open
 
     // Remember which messages THIS guest already reacted to (per-browser)
     function myReactions() { return JSON.parse(localStorage.getItem('gbMyReactions') || '{}'); }
@@ -1015,7 +1105,7 @@
         if (!SUPABASE_READY) {
             // Fallback so the page still works before Supabase is connected
             let local = JSON.parse(localStorage.getItem('gbLocal') || '[]');
-            local.push({ id: 'local-' + Date.now(), name, message, created_at: new Date().toISOString(), reactions: {} });
+            local.push({ id: 'local-' + Date.now(), name, message, created_at: new Date().toISOString(), reactions: {}, replies: [] });
             localStorage.setItem('gbLocal', JSON.stringify(local));
             finishSend();
             renderLocal();
@@ -1026,7 +1116,7 @@
             const res = await fetch(REST(), {
                 method: 'POST',
                 headers: { ...HEADERS(), 'Prefer': 'return=minimal' },
-                body: JSON.stringify({ name, message, reactions: {} })
+                body: JSON.stringify({ name, message, reactions: {}, replies: [] })
             });
             if (!res.ok) throw new Error('post failed');
             finishSend();
@@ -1069,16 +1159,18 @@
     }
 
     function renderMessages(rows, isLocal = false) {
-        // avoid needless re-render flicker
-        const hash = JSON.stringify(rows.map(r => [r.id, r.reactions]));
-        if (hash === lastRenderHash && !isLocal) { return; }
+        latestRows = rows;
+
+        // avoid needless re-render flicker — but don't skip if a reply box is open
+        const hash = JSON.stringify(rows.map(r => [r.id, r.reactions, r.replies]));
+        if (hash === lastRenderHash && !isLocal && openComposerId === null) { return; }
         lastRenderHash = hash;
 
         const wasNearBottom = chatHistory.scrollHeight - chatHistory.scrollTop - chatHistory.clientHeight < 80;
 
         // Always-present welcome bubble from the couple
         let html = `
-            <div class="chat-bubble">
+            <div class="chat-bubble couple-welcome">
                 <div class="chat-name">Raynald &amp; Regina</div>
                 <div class="chat-message">Thank you for visiting! We can't wait to see you. Please leave a message below! ❤️</div>
             </div>`;
@@ -1097,11 +1189,39 @@
                 return `<button class="reaction-btn${active}" data-id="${r.id}" data-emoji="${em}" aria-label="React with ${em}" aria-pressed="${mine[r.id] === em ? 'true' : 'false'}">${em}${countSpan}</button>`;
             }).join('');
 
+            // Couple replies thread
+            const replies = Array.isArray(r.replies) ? r.replies : [];
+            let repliesHtml = '';
+            if (replies.length) {
+                repliesHtml = `<div class="reply-thread">` + replies.map(rep => `
+                    <div class="reply-card">
+                        <div class="reply-name">${escapeHTML(rep.name || COUPLE_NAME)} <span class="reply-badge">The Couple</span> <span class="reply-time">${timeAgo(rep.created_at)}</span></div>
+                        <div class="reply-message">${escapeHTML(rep.message)}</div>
+                    </div>`).join('') + `</div>`;
+            }
+
+            // Admin-only controls (reply / delete)
+            const adminHtml = `
+                <div class="admin-controls">
+                    <button class="admin-btn reply-toggle" data-id="${r.id}">Reply</button>
+                    <button class="admin-btn danger delete-msg" data-id="${r.id}">Delete</button>
+                </div>
+                ${openComposerId === String(r.id) ? `
+                <div class="reply-composer" data-id="${r.id}">
+                    <textarea placeholder="Write your reply as ${escapeHTML(COUPLE_NAME)}…" maxlength="280"></textarea>
+                    <div class="reply-composer-actions">
+                        <button class="reply-send" data-id="${r.id}">Send Reply</button>
+                        <button class="reply-cancel" data-id="${r.id}">Cancel</button>
+                    </div>
+                </div>` : ''}`;
+
             html += `
-                <div class="chat-bubble">
+                <div class="chat-bubble guest-bubble" data-id="${r.id}">
                     <div class="chat-name">${escapeHTML(r.name)} <span class="chat-time">${timeAgo(r.created_at)}</span></div>
                     <div class="chat-message">${escapeHTML(r.message)}</div>
                     <div class="reaction-row">${reactHtml}</div>
+                    ${repliesHtml}
+                    ${adminHtml}
                 </div>`;
         });
 
@@ -1112,14 +1232,40 @@
 
         // wire reaction buttons
         chatHistory.querySelectorAll('.reaction-btn').forEach(btn => {
-            btn.addEventListener('click', () => toggleReaction(btn.dataset.id, btn.dataset.emoji, rows));
+            btn.addEventListener('click', () => toggleReaction(btn.dataset.id, btn.dataset.emoji));
+        });
+
+        // wire admin buttons (only present when body.is-admin)
+        chatHistory.querySelectorAll('.reply-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                openComposerId = (openComposerId === btn.dataset.id) ? null : btn.dataset.id;
+                renderMessages(latestRows, true);
+                // focus the textarea if just opened
+                if (openComposerId) {
+                    const ta = chatHistory.querySelector(`.reply-composer[data-id="${openComposerId}"] textarea`);
+                    if (ta) ta.focus();
+                }
+            });
+        });
+        chatHistory.querySelectorAll('.reply-cancel').forEach(btn => {
+            btn.addEventListener('click', () => { openComposerId = null; renderMessages(latestRows, true); });
+        });
+        chatHistory.querySelectorAll('.reply-send').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const ta = chatHistory.querySelector(`.reply-composer[data-id="${btn.dataset.id}"] textarea`);
+                if (ta) sendReply(btn.dataset.id, ta.value);
+            });
+        });
+        chatHistory.querySelectorAll('.delete-msg').forEach(btn => {
+            btn.addEventListener('click', () => deleteMessage(btn.dataset.id));
         });
 
         if (wasNearBottom) chatHistory.scrollTop = chatHistory.scrollHeight;
     }
 
     /* ---- Reactions ---- */
-    async function toggleReaction(id, emoji, rows) {
+    async function toggleReaction(id, emoji) {
+        const rows = latestRows;
         const row = rows.find(r => String(r.id) === String(id));
         if (!row) return;
         const reactions = { ...(row.reactions || {}) };
@@ -1153,6 +1299,70 @@
                 body: JSON.stringify({ reactions })
             });
         } catch (err) { /* optimistic UI already updated */ }
+    }
+
+    /* ---- Couple replies (admin only) ---- */
+    async function sendReply(id, text) {
+        if (!IS_ADMIN) return;
+        const message = (text || '').trim();
+        if (!message) return;
+
+        const rows = latestRows;
+        const row = rows.find(r => String(r.id) === String(id));
+        if (!row) return;
+
+        const replies = Array.isArray(row.replies) ? [...row.replies] : [];
+        replies.push({ name: COUPLE_NAME, message, created_at: new Date().toISOString() });
+        row.replies = replies;
+
+        // optimistic update + close composer
+        openComposerId = null;
+        renderMessages(rows, true);
+
+        if (!SUPABASE_READY) {
+            if (String(id).startsWith('local-')) {
+                const local = JSON.parse(localStorage.getItem('gbLocal') || '[]');
+                const t = local.find(m => m.id === id); if (t) t.replies = replies;
+                localStorage.setItem('gbLocal', JSON.stringify(local));
+            }
+            return;
+        }
+        try {
+            const res = await fetch(`${REST()}?id=eq.${id}`, {
+                method: 'PATCH',
+                headers: { ...HEADERS(), 'Prefer': 'return=minimal' },
+                body: JSON.stringify({ replies })
+            });
+            if (!res.ok) throw new Error('reply failed');
+            burstConfetti();
+            await loadMessages();
+        } catch (err) {
+            gbStatus.textContent = 'Could not send reply — check connection';
+        }
+    }
+
+    /* ---- Delete a message (admin only) ---- */
+    async function deleteMessage(id) {
+        if (!IS_ADMIN) return;
+        if (!confirm('Delete this message? This cannot be undone.')) return;
+
+        if (!SUPABASE_READY) {
+            let local = JSON.parse(localStorage.getItem('gbLocal') || '[]');
+            local = local.filter(m => String(m.id) !== String(id));
+            localStorage.setItem('gbLocal', JSON.stringify(local));
+            renderLocal();
+            return;
+        }
+        try {
+            const res = await fetch(`${REST()}?id=eq.${id}`, {
+                method: 'DELETE',
+                headers: { ...HEADERS(), 'Prefer': 'return=minimal' }
+            });
+            if (!res.ok) throw new Error('delete failed');
+            await loadMessages();
+        } catch (err) {
+            gbStatus.textContent = 'Could not delete — check connection / permissions';
+        }
     }
 
     /* ---- Helpers ---- */
