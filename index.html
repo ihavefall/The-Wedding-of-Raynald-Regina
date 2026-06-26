@@ -8,29 +8,25 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- BUILD v17 — bigger polaroids + bride subtitle closer to bio -->
-<title>The Wedding of Raynald &amp; Regina · 12.09.2026</title>
+<title>The Wedding of Raynald & Regina · 12.09.2026</title>
 <meta name="description" content="You're invited to celebrate the wedding of Raynald & Regina on Saturday, 12th September 2026 in Kotamobagu. Tap to open your invitation.">
 
-<!-- Favicon / tab + home-screen icon -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-<!-- Social share preview (WhatsApp / Instagram / Facebook) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="The Wedding of Raynald &amp; Regina">
+<meta property="og:title" content="The Wedding of Raynald & Regina">
 <meta property="og:description" content="You're invited! Saturday, 12th September 2026 · Kotamobagu. Tap to open your invitation.">
 <meta property="og:image" content="https://ihavefall.github.io/The-Wedding-of-Raynald-Regina/share-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://ihavefall.github.io/The-Wedding-of-Raynald-Regina/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Wedding of Raynald &amp; Regina">
+<meta name="twitter:title" content="The Wedding of Raynald & Regina">
 <meta name="twitter:description" content="You're invited! Saturday, 12th September 2026 · Kotamobagu.">
 <meta name="twitter:image" content="https://ihavefall.github.io/The-Wedding-of-Raynald-Regina/share-card.png">
 
-<!-- Faster font loading -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Courier+Prime:wght@400;700&family=Inter:wght@300;400;500;600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap">
@@ -168,7 +164,15 @@
 
     .section-title { text-align: center; margin: 70px 0 28px; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.7rem, 7.5vw, 2.4rem); letter-spacing: 0.01em; white-space: nowrap; }
     .section-subtitle { text-align: center; margin-top: -14px; margin-bottom: 34px; font-family: var(--font-body); font-weight: 300; font-size: 0.95rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.85; }
-    .section-subtitle.subtitle-standalone { margin-top: 8px; margin-bottom: 12px; }
+    
+    /* UPDATED FOR OVERLAP */
+    .section-subtitle.subtitle-standalone { 
+        margin-top: 8px; 
+        margin-bottom: -25px; /* Negative margin pulls the card up underneath the text */
+        position: relative;   /* Required for z-index to work */
+        z-index: 10;          /* Forces the text to render on top of the card */
+        text-shadow: 0 2px 4px rgba(0,0,0,0.4); /* Helps the white text pop if it overlaps a busy part of the design */
+    }
 
     /* --- SEE YOU THERE (TEXT VERSION, DROID SERIF, ANGLED) --- */
     .see-you-there {
@@ -534,7 +538,7 @@
     <div id="layer-1" class="fullscreen-layer clickable" role="button" tabindex="0" aria-label="Open the wedding invitation envelope">
         <div class="intro-text">
             <p class="intro-top">DEAR</p>
-            <h1 class="intro-names" id="guest-name-display">Friends &amp; Family</h1>
+            <h1 class="intro-names" id="guest-name-display">Friends & Family</h1>
             <p class="intro-top intro-bottom">YOU'RE INVITED TO</p>
         </div>
 
@@ -550,7 +554,7 @@
     <div id="layer-2" class="fullscreen-layer clickable" style="display: none; opacity: 0;" role="button" tabindex="0" aria-label="Continue to read the wedding details">
         <div class="layer-2-header">
             <p class="header-top">WE ARE GETTING MARRIED</p>
-            <h1 class="header-names">Raynald &amp; Regina</h1>
+            <h1 class="header-names">Raynald & Regina</h1>
         </div>
         <div class="open-envelope-wrapper">
             <img src="env2 - Copy.png" class="env-part env-back" alt="Envelope Back">
@@ -609,7 +613,7 @@
             <div class="calendar-buttons">
                 <button class="cal-btn" id="ical-btn" type="button">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    Apple / iCal &middot; Both Events
+                    Apple / iCal · Both Events
                 </button>
             </div>
             <h3>Wedding Ceremony</h3>
@@ -649,10 +653,9 @@
                 <img src="4 - Copy.png" alt="QR Code" style="width: 150px;" loading="lazy" decoding="async">
                 <p><strong>BCA: 0262945951</strong><br>A/N Bernandita Regina</p>
             </div>
-            <div class="gift-script">With love &amp; gratitude</div>
+            <div class="gift-script">With love & gratitude</div>
         </div>
 
-        <!-- SEE YOU THERE: now pure text using Droid Serif (angled, overlapping) -->
         <div class="see-you-there pop-element">
             <span class="syt-small">SEE <span class="syt-you">YOU</span></span>
             <span class="syt-large">THERE</span>
@@ -705,7 +708,7 @@
             </div>
 
             <div class="guestbook-meta">
-                <span class="guestbook-status" id="gb-status">&nbsp;</span>
+                <span class="guestbook-status" id="gb-status"> </span>
                 <span class="guestbook-count" id="gb-count"></span>
             </div>
 
@@ -1171,7 +1174,7 @@
         // Always-present welcome bubble from the couple
         let html = `
             <div class="chat-bubble couple-welcome">
-                <div class="chat-name">Raynald &amp; Regina</div>
+                <div class="chat-name">Raynald & Regina</div>
                 <div class="chat-message">Thank you for visiting! We can't wait to see you. Please leave a message below! ❤️</div>
             </div>`;
 
@@ -1399,7 +1402,7 @@
 
     function escapeHTML(str) {
         return String(str).replace(/[&<>'"]/g,
-            tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            tag => ({ '&': '&', '<': '<', '>': '>', "'": ''', '"': '"' }[tag] || tag)
         );
     }
 </script>
