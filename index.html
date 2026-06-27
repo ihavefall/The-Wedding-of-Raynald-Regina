@@ -31,20 +31,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Courier+Prime:wght@400;700&family=Inter:wght@300;400;500;600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap">
 <style>
-    /* ============================================================
-       LAYER 3 TYPOGRAPHY — minimalist pairing
-       Toggle between the two directions you asked for by swapping
-       which --font-display line is commented:
-         OPTION 1 (active): Cormorant Garamond (display) + Inter (body)
-         OPTION 3:          Playfair Display (display) + Inter (body)
-       ============================================================ */
     :root {
-        --font-display: 'Cormorant Garamond', serif;   /* OPTION 1 */
-        /* --font-display: 'Playfair Display', serif;     OPTION 3 */
+        --font-display: 'Cormorant Garamond', serif;
         --font-body: 'Inter', sans-serif;
     }
-
-    /* --- LOCAL DROID SERIF FONT --- */
     @font-face {
         font-family: 'Droid Serif';
         src: url('droid-serif.regular.ttf') format('truetype');
@@ -52,58 +42,42 @@
         font-style: normal;
         font-display: swap;
     }
-
     :root {
         --cabernet-red: #580f1c; 
         --paper-white: #fdfbf7;
         --text-dark: #2c1a1a;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-    /* Stop the blue tap-flash and accidental text/image selection on the
-       interactive layers (envelope, stickers, photo strip). The guestbook
-       form and chat keep normal selection so people can type and copy. */
     .clickable, .clickable *,
     .envelope-wrapper, .envelope-wrapper *,
     .open-envelope-wrapper, .open-envelope-wrapper *,
     .photobooth-wrapper, .photobooth-wrapper *,
     .envelope-overlay, img {
         -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
-        -webkit-touch-callout: none; /* no long-press image menu on iOS */
+        -webkit-touch-callout: none;
     }
-    /* Keep selection usable where it matters */
     .message-form, .message-form *, .chat-history, .chat-history * {
         -webkit-user-select: auto; -moz-user-select: auto; -ms-user-select: auto; user-select: auto;
     }
-
     body {
         background-color: var(--cabernet-red);
         color: var(--paper-white);
         font-family: 'Playfair Display', serif;
         overflow-x: hidden;
     }
-
-    /* --- FULLSCREEN LAYERS --- */
     .fullscreen-layer {
         position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
         z-index: 100; background-color: var(--cabernet-red); transition: opacity 0.8s ease;
     }
-
     .clickable { cursor: pointer; }
-
-    /* Intro Text Styling */
     .intro-text { text-align: center; margin-bottom: 40px; z-index: 10; transition: opacity 0.4s ease; }
     .intro-top { font-family: 'Courier Prime', monospace; letter-spacing: 6px; font-size: 1.1rem; margin-bottom: 15px; }
     .intro-names { font-family: 'Pinyon Script', cursive; font-size: 5.5rem; font-weight: 400; line-height: 1; }
     .intro-bottom { margin-top: 15px; margin-bottom: 0; }
-
-    /* --- ENVELOPE WRAPPERS --- */
     .envelope-wrapper { position: relative; width: 90%; max-width: 600px; transition: transform 0.5s ease; }
     .envelope-wrapper:hover { transform: scale(1.02); }
     .envelope-img { width: 100%; height: auto; display: block; }
-
     #layer-1.opening .envelope-wrapper { animation: envelopeLift 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
     #layer-1.opening .intro-text { opacity: 0; transition: opacity 0.4s ease; }
     @keyframes envelopeLift {
@@ -111,41 +85,30 @@
         40%  { transform: scale(1.08) translateY(-10px); }
         100% { transform: scale(1.4) translateY(-40px); opacity: 0; }
     }
-
     .envelope-overlay { position: absolute; z-index: 10; }
     .wax-seal { width: 90px; top: 58%; left: 50%; transform: translate(-50%, -50%); filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
     .bride-sticker { width: 90px; top: 30%; left: -35px; animation: floatLeft 3s ease-in-out infinite; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); }
     .groom-sticker { width: 90px; bottom: 15%; right: -35px; animation: floatRight 3s ease-in-out infinite; animation-delay: 1.5s; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); }
-
     @keyframes floatLeft { 0%, 100% { transform: translateY(0) rotate(-10deg); } 50% { transform: translateY(-12px) rotate(-10deg); } }
     @keyframes floatRight { 0%, 100% { transform: translateY(0) rotate(10deg); } 50% { transform: translateY(-12px) rotate(10deg); } }
-
     #layer-2 { justify-content: flex-start; padding-top: 6vh; }
-
     .layer-2-header { text-align: center; margin-bottom: 5px; padding-top: 56px; z-index: 20; opacity: 0; transform: translateY(-20px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .layer-2-active .layer-2-header { opacity: 1; transform: translateY(0); }
     .header-top { font-family: 'Courier Prime', monospace; letter-spacing: 8px; font-size: 1.4rem; font-weight: 700; margin-bottom: 5px; }
     .header-names { font-family: 'Pinyon Script', cursive; font-size: 5.5rem; font-weight: 400; line-height: 1; }
-
     .open-envelope-wrapper { position: relative; width: 90%; max-width: 600px; margin-top: 10px; transition: transform 0.5s ease; }
     .open-envelope-wrapper:hover { transform: scale(1.02); }
-
     .env-part { width: 100%; height: auto; display: block; }
     .env-back { position: relative; z-index: 1; }
     .tucked-film { position: absolute; width: 34%; left: 14%; bottom: 18%; z-index: 3; transform-origin: bottom center; transform: rotate(-8deg) translateY(40%); opacity: 0; }
     .tucked-card { position: absolute; width: 48%; right: 10%; bottom: 18%; z-index: 2; transform-origin: bottom center; transform: rotate(10deg) translateY(40%); opacity: 0; }
     .env-front { position: absolute; bottom: 0; left: 0; z-index: 4; }
-
     .layer-2-active .tucked-film { animation: slideUpFilm 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.5s; }
     .layer-2-active .tucked-card { animation: slideUpCard 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.7s; }
-
     @keyframes slideUpFilm { to { transform: rotate(-7deg) translateY(-8%) translateX(18%); opacity: 1; } }
     @keyframes slideUpCard { to { transform: rotate(12deg) translateY(-18%) translateX(-22%); opacity: 1; } }
-
     .click-text { margin-top: 20px; font-family: 'Courier Prime', monospace; letter-spacing: 2px; font-size: 0.9rem; animation: pulse 1.5s infinite; z-index: 10; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-    /* --- MUSIC TOGGLE BUTTON --- */
     .music-toggle {
         position: fixed; top: 18px; right: 18px; width: 46px; height: 46px; border-radius: 50%;
         background: rgba(88, 15, 28, 0.85); border: 1px solid rgba(253, 251, 247, 0.5); color: var(--paper-white);
@@ -158,23 +121,16 @@
     .music-toggle .icon-muted { display: none; }
     .music-toggle.is-muted .icon-playing { display: none; }
     .music-toggle.is-muted .icon-muted { display: block; }
-
-    /* --- MAIN CONTENT --- */
     #main-content { display: none; max-width: 800px; margin: 0 auto; padding: 40px 20px; background-color: var(--cabernet-red); }
-
     .section-title { text-align: center; margin: 70px 0 28px; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.7rem, 7.5vw, 2.4rem); letter-spacing: 0.01em; white-space: nowrap; }
     .section-subtitle { text-align: center; margin-top: -14px; margin-bottom: 34px; font-family: var(--font-body); font-weight: 300; font-size: 0.95rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.85; }
-    
-    /* UPDATED FOR OVERLAP */
     .section-subtitle.subtitle-standalone { 
         margin-top: 8px; 
-        margin-bottom: -25px; /* Negative margin pulls the card up underneath the text */
-        position: relative;   /* Required for z-index to work */
-        z-index: 10;          /* Forces the text to render on top of the card */
-        text-shadow: 0 2px 4px rgba(0,0,0,0.4); /* Helps the white text pop if it overlaps a busy part of the design */
+        margin-bottom: -25px;
+        position: relative;
+        z-index: 10;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.4);
     }
-
-    /* --- SEE YOU THERE (TEXT VERSION, DROID SERIF, ANGLED) --- */
     .see-you-there {
         position: relative;
         width: 100%;
@@ -184,12 +140,9 @@
         opacity: 0;
         transform: translateY(30px);
         transition: all 0.8s ease;
-        /* reserve vertical space since children are absolutely positioned / overlapping */
         height: clamp(100px, 26vw, 160px);
     }
     .see-you-there.visible { opacity: 1; transform: translateY(0); }
-
-    /* "SEE YOU" — italic, tilted up, sitting upper-left over THERE */
     .syt-small {
         position: absolute;
         top: 0;
@@ -205,12 +158,7 @@
         white-space: nowrap;
         z-index: 2;
     }
-    /* make "YOU" larger than "SEE", like the reference */
-    .syt-small .syt-you {
-        font-size: 1.35em;
-    }
-
-    /* "THERE" — large, upright, tucked tight under SEE YOU */
+    .syt-small .syt-you { font-size: 1.35em; }
     .syt-large {
         position: absolute;
         bottom: 0;
@@ -224,8 +172,6 @@
         white-space: nowrap;
         z-index: 1;
     }
-
-    /* --- TEXTURED PAPER PROFILE CARDS --- */
     .profile-card { 
         background-image: url("paper.png"); background-size: contain; background-color: transparent; background-position: center; background-repeat: no-repeat; color: var(--text-dark); 
         width: 100%; max-width: 560px; aspect-ratio: 1410 / 2000; margin: 0 auto 70px auto; padding: 0; position: relative; container-type: inline-size; 
@@ -233,34 +179,25 @@
     }
     .profile-card.visible { transform: translateY(0); opacity: 1; }
     .groom-card { max-width: 460px; margin-bottom: 24px; }
-
     .card-content { position: absolute; top: 11%; bottom: 42%; display: flex; flex-direction: column; overflow: hidden; }
     .groom-card .card-content { left: 19%; right: 18%; }
     .bride-card .card-content { left: 18%; right: 19%; }
-    
     .detail-table { font-family: var(--font-body); width: 100%; margin-bottom: 5%; border-collapse: separate; border-spacing: 0 1.4%; font-size: clamp(0.66rem, 3.1cqw, 0.9rem); }
     .detail-table td.label { width: 18%; font-weight: 600; letter-spacing: 0.04em; vertical-align: middle; font-size: 0.82em; text-transform: uppercase; opacity: 0.7; }
     .detail-table td.value { border: none; border-bottom: 1px solid rgba(51,51,51,0.25); padding: 4px 6px; background-color: transparent; font-weight: 400; }
     .detail-table td.value.name-value { white-space: nowrap; font-size: clamp(0.58rem, 2.7cqw, 0.82rem); }
-    
     .typewriter-text { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: clamp(0.82rem, 3.5cqw, 1.12rem); line-height: 1.45; flex: 1 1 auto; min-height: 0; overflow: hidden; color: #2c1a1a; }
-    
     .vertical-name { position: absolute; bottom: 24%; font-family: var(--font-display); font-size: clamp(1.6rem, 9cqw, 3rem); color: var(--cabernet-red); writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: 0.08em; font-weight: 500; z-index: 6; }
     .groom-card .vertical-name { left: 16%; } .bride-card .vertical-name { right: 16%; }
-    
     .polaroid-wrapper { position: absolute; bottom: 1%; width: 42%; background: #fff; padding: 5% 5% 14% 5%; box-shadow: 2px 8px 20px rgba(0,0,0,0.4); z-index: 10; }
     .groom-card .polaroid-wrapper { right: 12%; transform: rotate(5deg); } .bride-card .polaroid-wrapper { left: 12%; transform: rotate(-4deg); }
     .polaroid-wrapper img { width: 100%; display: block; background-color: #eee; aspect-ratio: 1/1; object-fit: cover; }
-    
     .duct-tape { position: absolute; top: -12px; left: 50%; width: 80px; height: 22px; background: rgba(220, 220, 220, 0.9); box-shadow: 0 1px 3px rgba(0,0,0,0.2); z-index: 11; }
     .groom-card .duct-tape { transform: translateX(-50%) rotate(-4deg); } .bride-card .duct-tape { transform: translateX(-50%) rotate(3deg); }
-
-    /* Detail & Gift Cards */
     .info-card { background-color: #f0ede1; color: #2c1a1a; padding: 48px 32px; text-align: center; border-radius: 8px; margin-bottom: 40px; opacity: 0; transform: scale(0.97); transition: all 0.8s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.12); font-family: var(--font-body); font-weight: 300; }
     .info-card.visible { opacity: 1; transform: scale(1); }
     .info-card p { font-family: var(--font-body); font-weight: 300; font-size: 0.98rem; line-height: 1.7; }
     .info-card h3 { font-family: var(--font-body); font-weight: 500; font-size: 0.82rem; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 14px; color: var(--cabernet-red); }
-    /* date/time as the focal point */
     .info-card .event-when { font-family: var(--font-display); font-weight: 600; font-size: 2rem; line-height: 1.25; margin-bottom: 6px; color: var(--cabernet-red); }
     .info-card .event-date { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.5rem, 6.5vw, 2rem); line-height: 1.2; margin-bottom: 4px; color: var(--cabernet-red); }
     .info-card .event-date-header { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.7rem, 7.5vw, 2.3rem); line-height: 1.15; margin-top: 8px; margin-bottom: 8px; color: var(--cabernet-red); text-align: center; }
@@ -281,7 +218,6 @@
     .info-card .event-venue { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(1rem, 4vw, 1.15rem); line-height: 1.4; }
     .info-card .event-where { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1.15rem; line-height: 1.4; }
     .info-card strong { font-weight: 600; letter-spacing: 0.03em; }
-    /* subtle divider between ceremony and reception */
     .event-divider { width: 40px; height: 1px; background: rgba(88,15,28,0.35); margin: 26px auto; border: none; }
     .map-link {
         display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
@@ -292,20 +228,14 @@
     }
     .map-link:hover { background: var(--cabernet-red); color: var(--paper-white); }
     .map-link svg { width: 13px; height: 13px; }
-
-    /* Gift card — warm & joyful */
     .gift-lead { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(1.2rem, 4.5vw, 1.5rem); line-height: 1.5; color: var(--cabernet-red); margin-bottom: 18px; }
     .gift-note { font-family: var(--font-body); font-weight: 300; font-size: 0.96rem; line-height: 1.7; }
     .gift-script { font-family: 'Pinyon Script', cursive; font-size: clamp(2.2rem, 9vw, 3rem); color: var(--cabernet-red); line-height: 1; margin: 28px 0 0; }
     .qr-container { margin-top: 22px; padding: 18px; border: 1px solid var(--cabernet-red); border-radius: 10px; display: inline-block; background-color: rgba(255,255,255,0.4); }
     .qr-container p { font-family: var(--font-body); font-size: 0.85rem; margin-top: 8px; }
-
-    /* --- VIDEO SECTION --- */
     .video-wrapper { background: #fcf1dd; padding: 12px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin: 0 auto 80px auto; opacity: 0; transform: translateY(30px); transition: all 0.8s ease; width: fit-content; max-width: 100%; }
     .video-wrapper.visible { opacity: 1; transform: translateY(0); }
     .video-wrapper video { width: 300px; max-width: 100%; aspect-ratio: 9 / 16; border-radius: 4px; display: block; background-color: #000; object-fit: cover; }
-
-    /* --- REAL PHOTOBOOTH EFFECT --- */
     .photobooth-wrapper { background-color: #fcf1dd; padding: 40px 20px 60px; border-radius: 12px; margin-top: 80px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
     .photobooth-wrapper.visible { opacity: 1; transform: translateY(0); }
     .photobooth-container { position: relative; width: 100%; max-width: 380px; margin: 0 auto; }
@@ -320,8 +250,6 @@
     .strip-footer { text-align: center; margin-top: 25px; margin-bottom: 10px; color: var(--paper-white); display: flex; flex-direction: column; gap: 5px; }
     .strip-names { font-family: 'Pinyon Script', cursive; font-size: clamp(1.7rem, 8vw, 2.3rem); line-height: 1; white-space: nowrap; }
     .strip-date { font-family: 'Courier Prime', monospace; font-size: 0.9rem; letter-spacing: 3px; }
-
-    /* --- LAYER 4: GUESTBOOK STYLING --- */
     .open-guestbook-btn {
         background-color: var(--paper-white);
         color: var(--cabernet-red);
@@ -339,7 +267,6 @@
         transition: transform 0.3s ease;
     }
     .open-guestbook-btn:hover { transform: scale(1.05); }
-
     #layer-4 {
         justify-content: flex-start;
         padding: 60px 20px 40px 20px;
@@ -352,56 +279,41 @@
         min-height: 100vh;
         min-height: 100dvh;
     }
-
     .guestbook-container { width: 100%; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; min-height: 100%; }
     .guestbook-header { text-align: center; margin-bottom: 18px; }
     .guestbook-title { font-family: 'Pinyon Script', cursive; color: var(--cabernet-red); font-size: clamp(3.2rem, 14vw, 4.5rem); font-weight: 400; line-height: 1; margin: 0; }
     .guestbook-sub { font-family: var(--font-body); font-weight: 300; font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cabernet-red); opacity: 0.7; margin-top: 6px; }
-
-    /* Small badge shown only when the couple opens the admin link */
     .admin-badge { display: none; margin-top: 10px; font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper-white); background: var(--cabernet-red); padding: 5px 14px; border-radius: 30px; }
     body.is-admin .admin-badge { display: inline-block; }
-
     .back-btn {
         background: none; border: none; font-family: var(--font-body); font-size: 0.85rem;
         letter-spacing: 0.05em; color: var(--cabernet-red); cursor: pointer; text-align: left;
         margin-bottom: 20px; font-weight: 500;
     }
-
     .chat-history {
         flex: 1 1 auto; min-height: 200px; max-height: 50vh; background: #f0ede1; border-radius: 12px; padding: 20px; overflow-y: auto; -webkit-overflow-scrolling: touch;
         display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
     }
-
     .chat-bubble {
         background: #fff; padding: 15px; border-radius: 15px; border-bottom-left-radius: 2px;
         max-width: 85%; align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    /* Guests' bubbles alternate sides for a chat feel. The couple's own
-       replies use an explicit class so they always sit on the right in
-       the brand colour, regardless of position. */
-    .chat-bubble.guest-bubble:nth-of-type(even) {
+    .chat-bubble.guest-bubble.alt-right {
         align-self: flex-end; background: var(--cabernet-red); color: var(--paper-white); border-bottom-left-radius: 15px; border-bottom-right-radius: 2px;
     }
-
     .chat-name { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; margin-bottom: 4px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; color: var(--cabernet-red); }
-    .chat-bubble.guest-bubble:nth-of-type(even) .chat-name { color: var(--paper-white); }
+    .chat-bubble.guest-bubble.alt-right .chat-name { color: var(--paper-white); }
     .chat-time { font-family: var(--font-body); font-weight: 400; font-size: 0.68rem; letter-spacing: 0.03em; opacity: 0.55; }
     .chat-message { font-family: var(--font-body); font-weight: 300; font-size: 0.98rem; line-height: 1.5; }
-
-    /* --- COUPLE'S REPLY (threaded under a guest message) --- */
     .reply-thread { margin-top: 12px; padding-left: 14px; border-left: 2px solid rgba(88,15,28,0.25); display: flex; flex-direction: column; gap: 10px; }
-    .chat-bubble.guest-bubble:nth-of-type(even) .reply-thread { border-left-color: rgba(253,251,247,0.45); }
+    .chat-bubble.guest-bubble.alt-right .reply-thread { border-left-color: rgba(253,251,247,0.45); }
     .reply-card { background: var(--cabernet-red); color: var(--paper-white); border-radius: 12px; padding: 10px 13px; box-shadow: 0 2px 6px rgba(0,0,0,0.18); }
-    /* When the parent guest bubble is itself the dark one, flip the reply to light so it stays readable */
-    .chat-bubble.guest-bubble:nth-of-type(even) .reply-card { background: var(--paper-white); color: var(--text-dark); }
+    .chat-bubble.guest-bubble.alt-right .reply-card { background: var(--paper-white); color: var(--text-dark); }
     .reply-name { font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; }
     .reply-name .reply-badge { font-family: var(--font-body); font-weight: 600; font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(253,251,247,0.22); padding: 2px 7px; border-radius: 20px; }
-    .chat-bubble.guest-bubble:nth-of-type(even) .reply-card .reply-badge { background: rgba(88,15,28,0.12); }
+    .chat-bubble.guest-bubble.alt-right .reply-card .reply-badge { background: rgba(88,15,28,0.12); }
     .reply-time { font-family: var(--font-body); font-weight: 400; font-size: 0.64rem; letter-spacing: 0.03em; opacity: 0.6; }
     .reply-message { font-family: var(--font-body); font-weight: 300; font-size: 0.92rem; line-height: 1.5; margin-top: 3px; }
-
-    /* Admin-only controls on each message */
     .admin-controls { margin-top: 10px; display: none; gap: 8px; flex-wrap: wrap; }
     body.is-admin .admin-controls { display: flex; }
     .admin-btn {
@@ -411,12 +323,10 @@
         transition: all 0.2s ease; -webkit-tap-highlight-color: transparent;
     }
     .admin-btn:hover { background: var(--cabernet-red); color: var(--paper-white); }
-    .chat-bubble.guest-bubble:nth-of-type(even) .admin-btn { border-color: rgba(253,251,247,0.7); color: var(--paper-white); }
-    .chat-bubble.guest-bubble:nth-of-type(even) .admin-btn:hover { background: var(--paper-white); color: var(--cabernet-red); }
+    .chat-bubble.guest-bubble.alt-right .admin-btn { border-color: rgba(253,251,247,0.7); color: var(--paper-white); }
+    .chat-bubble.guest-bubble.alt-right .admin-btn:hover { background: var(--paper-white); color: var(--cabernet-red); }
     .admin-btn.danger { border-color: #9a3b50; color: #9a3b50; }
     .admin-btn.danger:hover { background: #9a3b50; color: #fff; }
-
-    /* Inline reply composer (admin) */
     .reply-composer { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
     .reply-composer textarea {
         width: 100%; padding: 10px; border: 1px solid #d8d0c4; border-radius: 8px;
@@ -436,8 +346,6 @@
         border-radius: 20px; font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
         letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
     }
-
-    /* Reaction row under each bubble */
     .reaction-row { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
     .reaction-btn {
         background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); border-radius: 20px;
@@ -448,11 +356,8 @@
     .reaction-btn:active { transform: scale(0.92); }
     .reaction-btn .r-count { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; min-width: 8px; }
     .reaction-btn.reacted { background: var(--cabernet-red); color: var(--paper-white); border-color: var(--cabernet-red); }
-    /* On the dark (even) bubbles, lighten the reaction chips */
-    .chat-bubble.guest-bubble:nth-of-type(even) .reaction-btn { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.35); color: var(--paper-white); }
-    .chat-bubble.guest-bubble:nth-of-type(even) .reaction-btn.reacted { background: var(--paper-white); color: var(--cabernet-red); border-color: var(--paper-white); }
-
-    /* Status / count line above the form */
+    .chat-bubble.guest-bubble.alt-right .reaction-btn { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.35); color: var(--paper-white); }
+    .chat-bubble.guest-bubble.alt-right .reaction-btn.reacted { background: var(--paper-white); color: var(--cabernet-red); border-color: var(--paper-white); }
     .guestbook-meta {
         display: flex; justify-content: space-between; align-items: center;
         font-family: var(--font-body); font-size: 0.78rem; color: var(--cabernet-red);
@@ -460,15 +365,12 @@
     }
     .guestbook-status { opacity: 0.7; }
     .guestbook-count { font-weight: 600; }
-
     .message-form { display: flex; flex-direction: column; gap: 10px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
     .message-form input, .message-form textarea {
         width: 100%; padding: 12px; border: 1px solid #d8d0c4; border-radius: 6px; font-family: var(--font-body); font-weight: 300; font-size: 1rem;
     }
     .message-form input:focus, .message-form textarea:focus { outline: none; border-color: var(--cabernet-red); }
     .message-form textarea { resize: vertical; min-height: 80px; }
-
-    /* Emoji quick-insert row + char counter */
     .form-extras { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: -2px; }
     .emoji-row { display: flex; gap: 4px; }
     .emoji-insert {
@@ -478,7 +380,6 @@
     .emoji-insert:hover { transform: scale(1.2); }
     .char-counter { font-family: var(--font-body); font-size: 0.72rem; color: #999; white-space: nowrap; }
     .char-counter.near-limit { color: var(--cabernet-red); font-weight: 600; }
-
     .send-btn {
         background: var(--cabernet-red); color: var(--paper-white); border: none; padding: 12px; border-radius: 6px;
         font-family: 'Droid Serif', serif; font-weight: 400; font-size: 1.05rem; letter-spacing: 0.05em;
@@ -486,16 +387,11 @@
     }
     .send-btn:hover { background: #3a0a12; }
     .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    /* Confetti */
     .confetti-piece {
         position: fixed; width: 10px; height: 14px; top: -20px; z-index: 99999;
         pointer-events: none; will-change: transform, opacity;
     }
-
-    /* Empty / loading state */
     .gb-placeholder { text-align: center; font-family: var(--font-display); font-style: italic; font-weight: 500; color: #998; padding: 30px 10px; font-size: 1.05rem; }
-
     @media (min-width: 768px) {
         .bride-card { max-width: 600px; }
         .groom-card { max-width: 500px; }
@@ -507,11 +403,8 @@
         .intro-top { font-size: 0.9rem; letter-spacing: 4px; }
         #layer-2 { padding-top: 4vh; }
         .layer-2-header { padding-top: 50px; }
-
-        /* Layer 1: shrink envelope so stickers stay on-screen */
         #layer-1 .envelope-wrapper { width: 78%; }
         .intro-text { margin-bottom: 28px; }
-        /* Pull floating stickers inward so they don't get clipped at screen edges */
         .bride-sticker { width: 64px; left: -18px; top: 26%; }
         .groom-sticker { width: 64px; right: -18px; bottom: 18%; }
         .wax-seal { width: 70px; }
@@ -538,7 +431,7 @@
     <div id="layer-1" class="fullscreen-layer clickable" role="button" tabindex="0" aria-label="Open the wedding invitation envelope">
         <div class="intro-text">
             <p class="intro-top">DEAR</p>
-            <h1 class="intro-names" id="guest-name-display">Friends & Family</h1>
+            <h1 class="intro-names" id="guest-name-display">Friends &amp; Family</h1>
             <p class="intro-top intro-bottom">YOU'RE INVITED TO</p>
         </div>
 
@@ -554,7 +447,7 @@
     <div id="layer-2" class="fullscreen-layer clickable" style="display: none; opacity: 0;" role="button" tabindex="0" aria-label="Continue to read the wedding details">
         <div class="layer-2-header">
             <p class="header-top">WE ARE GETTING MARRIED</p>
-            <h1 class="header-names">Raynald & Regina</h1>
+            <h1 class="header-names">Raynald &amp; Regina</h1>
         </div>
         <div class="open-envelope-wrapper">
             <img src="env2 - Copy.png" class="env-part env-back" alt="Envelope Back">
@@ -648,12 +541,12 @@
         <h2 class="section-title">Wedding Gift</h2>
         <div class="info-card pop-element">
             <p class="gift-lead">Your presence at our celebration is the greatest gift of all.</p>
-            <p class="gift-note">We can’t wait to celebrate this beautiful moment with the people we love most. Save the date and lets create a day filled with joy, laughter and everlasting memories together. However, if you wish to honor us, the contribution can be made via the account below to help us begin our next chapter together.</p>
+            <p class="gift-note">We can&rsquo;t wait to celebrate this beautiful moment with the people we love most. Save the date and let's create a day filled with joy, laughter and everlasting memories together. However, if you wish to honor us, the contribution can be made via the account below to help us begin our next chapter together.</p>
             <div class="qr-container">
                 <img src="4 - Copy.png" alt="QR Code" style="width: 150px;" loading="lazy" decoding="async">
                 <p><strong>BCA: 0262945951</strong><br>A/N Bernandita Regina</p>
             </div>
-            <div class="gift-script">With love & gratitude</div>
+            <div class="gift-script">With love &amp; gratitude</div>
         </div>
 
         <div class="see-you-there pop-element">
@@ -681,7 +574,7 @@
                             <img src="8.jpeg" alt="Photo 8" loading="lazy" decoding="async">
                         </div>
                         <div class="strip-footer">
-                            <span class="strip-names">Raynald & Regina</span>
+                            <span class="strip-names">Raynald &amp; Regina</span>
                             <span class="strip-date">12.09.2026</span>
                         </div>
                     </div>
@@ -695,7 +588,7 @@
 
     <div id="layer-4" class="fullscreen-layer" style="display: none; opacity: 0;">
         <div class="guestbook-container">
-            <button id="close-layer-4" class="back-btn">← Back to Wedding Details</button>
+            <button id="close-layer-4" class="back-btn">&larr; Back to Wedding Details</button>
             
             <div class="guestbook-header">
                 <h1 class="guestbook-title">Guestbook</h1>
@@ -704,7 +597,7 @@
             </div>
             
             <div class="chat-history" id="chat-history">
-                <div class="gb-placeholder">Loading messages…</div>
+                <div class="gb-placeholder">Loading messages&hellip;</div>
             </div>
 
             <div class="guestbook-meta">
@@ -736,7 +629,6 @@
         const params = new URLSearchParams(window.location.search);
         const raw = (params.get('to') || '').trim();
         if (raw) {
-            // strip any HTML, cap length to keep layout sane
             const clean = raw.replace(/[<>]/g, '').slice(0, 60);
             const el = document.getElementById('guest-name-display');
             if (el) el.textContent = clean;
@@ -749,13 +641,11 @@
     const layer4 = document.getElementById('layer-4');
     const btnOpenGuestbook = document.getElementById('open-layer-4');
     const btnCloseGuestbook = document.getElementById('close-layer-4');
-    
+
     const bgMusic = document.getElementById('bg-music');
     const musicToggle = document.getElementById('music-toggle');
 
-    /* Smart audio preload: keep the first paint fast (preload="none" in HTML),
-       then quietly start buffering the song once the page is idle, so playback
-       is ready by the time the guest opens the envelope. */
+    /* Smart audio preload */
     (function warmUpAudio() {
         if (!bgMusic) return;
         const warm = () => { try { bgMusic.preload = 'auto'; bgMusic.load(); } catch (e) {} };
@@ -766,6 +656,7 @@
         }
     })();
 
+    let fadeTimer = null;
     function startMusic() {
         if (!bgMusic) return;
         bgMusic.volume = 0;
@@ -784,16 +675,18 @@
     function fadeInMusic() {
         const target = 0.6;
         const step = 0.03;
-        const id = setInterval(() => {
+        if (fadeTimer) clearInterval(fadeTimer);
+        fadeTimer = setInterval(() => {
             bgMusic.volume = Math.min(target, bgMusic.volume + step);
-            if (bgMusic.volume >= target) clearInterval(id);
+            if (bgMusic.volume >= target) { clearInterval(fadeTimer); fadeTimer = null; }
         }, 80);
     }
 
     musicToggle.addEventListener('click', (e) => {
         e.stopPropagation();
         if (bgMusic.paused) {
-            bgMusic.play();
+            bgMusic.play().catch(() => {});
+            bgMusic.muted = false;
             musicToggle.classList.remove('is-muted');
         } else if (bgMusic.muted) {
             bgMusic.muted = false;
@@ -806,30 +699,28 @@
 
     layer1.addEventListener('click', () => {
         layer1.classList.add('opening');
-        layer1.style.opacity = 0; 
+        layer1.style.opacity = 0;
         startMusic();
-        
         setTimeout(() => {
-            layer1.style.display = 'none'; 
-            layer2.style.display = 'flex'; 
+            layer1.style.display = 'none';
+            layer2.style.display = 'flex';
             setTimeout(() => {
-                layer2.style.opacity = 1; 
+                layer2.style.opacity = 1;
                 layer2.classList.add('layer-2-active');
-            }, 50); 
-        }, 800); 
-    });
-
-    layer2.addEventListener('click', () => {
-        layer2.style.opacity = 0; 
-        setTimeout(() => {
-            layer2.style.display = 'none'; 
-            mainContent.style.display = 'block'; 
-            window.scrollTo(0,0); 
-            initScrollAnimations(); 
+            }, 50);
         }, 800);
     });
 
-    /* Keyboard access: let Enter or Space open the envelope layers, same as a tap. */
+    layer2.addEventListener('click', () => {
+        layer2.style.opacity = 0;
+        setTimeout(() => {
+            layer2.style.display = 'none';
+            mainContent.style.display = 'block';
+            window.scrollTo(0, 0);
+            initScrollAnimations();
+        }, 800);
+    });
+
     [layer1, layer2].forEach(layer => {
         layer.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
@@ -839,15 +730,11 @@
         });
     });
 
-    /* Video is silent (audio stripped), so background music should keep playing over it.
-       Some mobile browsers still pause background <audio> when a <video> starts, because
-       the OS hands the audio channel to the video. This guard resumes the music if that
-       happens — only when the user hasn't deliberately muted it via the toggle button. */
+    /* Keep music playing over the silent video on mobile */
     (function keepMusicPlaying() {
         const vid = document.querySelector('.video-wrapper video');
         if (!vid || !bgMusic) return;
         const resumeIfNeeded = () => {
-            // Respect a deliberate mute: if the toggle shows muted, leave it alone.
             const userMuted = musicToggle && musicToggle.classList.contains('is-muted');
             if (!userMuted && bgMusic.paused) {
                 bgMusic.play().catch(() => {});
@@ -857,10 +744,7 @@
         vid.addEventListener('playing', () => setTimeout(resumeIfNeeded, 60));
     })();
 
-    /* --- ADD TO CALENDAR (iCalendar .ics) ---
-       Builds one .ics file containing BOTH the ceremony and the reception,
-       so adding it marks both events. Times are in WITA (UTC+8):
-         Ceremony 14:00 WITA = 06:00 UTC, Reception 19:00 WITA = 11:00 UTC. */
+    /* --- ADD TO CALENDAR (iCalendar .ics) --- */
     (function setupICal() {
         const btn = document.getElementById('ical-btn');
         if (!btn) return;
@@ -936,7 +820,6 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    
                     const typewriters = entry.target.querySelectorAll('.typewriter-text');
                     typewriters.forEach(tw => {
                         if (!tw.classList.contains('typed')) {
@@ -948,16 +831,15 @@
                 }
             });
         }, { threshold: 0.15 });
-
         document.querySelectorAll('.pop-element').forEach(el => { observer.observe(el); });
     }
 
     function typeText(element, text) {
-        let i = 0; element.innerHTML = '';
+        let i = 0; element.textContent = '';
         function type() {
             if (i < text.length) {
-                element.innerHTML += text.charAt(i); i++;
-                setTimeout(type, 20); 
+                element.textContent += text.charAt(i); i++;
+                setTimeout(type, 20);
             } else {
                 fitText(element);
             }
@@ -978,28 +860,20 @@
     /* ============================================================
        LAYER 4 — SHARED GUESTBOOK (Supabase backend)
        ------------------------------------------------------------
-       SETUP (do this once, see the notes I gave you):
-       1. Create a Supabase project (free).
-       2. Run the SQL I provided to create the `guestbook` table.
-       3. Paste your Project URL and anon public key below.
+       SECURITY — READ THIS:
+       The admin secret below only HIDES the reply/delete buttons in the
+       browser. It is NOT real security. The ONLY thing that actually
+       protects your guestbook from a malicious visitor (who could open
+       the console and call the REST API directly) is Supabase Row Level
+       Security (RLS). You MUST apply the RLS policies in the file
+       SUPABASE_SETUP.sql that ships alongside this page. Without them,
+       anyone could delete every message.
 
-       NEW — COUPLE REPLIES:
-       - The couple can reply to any message. Replies are stored in a
-         `replies` JSON column on each guestbook row.
-       - Reply controls only appear in "couple mode": open the site with
-         ?admin=YOUR_SECRET in the URL (set ADMIN_SECRET below).
-         e.g.  https://your-site/?admin=bregi2026
-         You can bookmark that link. Guests who don't have it never see
-         the reply buttons.
-       - IMPORTANT: this is light protection suited to a wedding guestbook,
-         not real authentication. Anyone who learns the secret could reply.
-         Keep the link private and it's perfectly fine for this use.
-
-       SUPABASE NOTE: if you created the table before adding replies, run:
-         alter table guestbook add column if not exists replies jsonb default '[]'::jsonb;
+       After deploying, test in a private window WITHOUT the ?admin link:
+       you should be able to post + react, but NOT delete or reply.
        ============================================================ */
-    const SUPABASE_URL  = 'https://ebildkpsgnxbqapjiogu.supabase.co';      // e.g. https://abcxyz.supabase.co
-    const SUPABASE_ANON  = 'sb_publishable_xWqhnrTsbf6pimQZpY0dYw_Rx4PjrCE'; // the public "anon" key
+    const SUPABASE_URL  = 'https://ebildkpsgnxbqapjiogu.supabase.co';
+    const SUPABASE_ANON  = 'sb_publishable_xWqhnrTsbf6pimQZpY0dYw_Rx4PjrCE';
     const REST = () => `${SUPABASE_URL}/rest/v1/guestbook`;
     const HEADERS = () => ({
         'apikey': SUPABASE_ANON,
@@ -1008,9 +882,6 @@
     });
     const SUPABASE_READY = SUPABASE_URL.startsWith('http') && SUPABASE_ANON.length > 20;
 
-    /* ---- ADMIN (couple) MODE ----
-       Change this secret to anything you like. Then visit the site with
-       ?admin=THAT_SECRET to unlock replies. */
     const ADMIN_SECRET = 'bregi2026';
     const COUPLE_NAME = 'Raynald & Regina';
     const IS_ADMIN = (function () {
@@ -1019,7 +890,6 @@
             try { localStorage.setItem('gbAdmin', '1'); } catch (e) {}
             return true;
         }
-        // Stay in admin mode across page navigations on the couple's own device
         try { return localStorage.getItem('gbAdmin') === '1'; } catch (e) { return false; }
     })();
     if (IS_ADMIN) document.body.classList.add('is-admin');
@@ -1036,21 +906,24 @@
 
     let pollTimer = null;
     let lastRenderHash = '';
-    let latestRows = [];          // keep the most recent data for reply/delete actions
-    let openComposerId = null;    // which message currently has its reply box open
+    let latestRows = [];
+    let openComposerId = null;
+    let replySending = false;
 
-    // Remember which messages THIS guest already reacted to (per-browser)
-    function myReactions() { return JSON.parse(localStorage.getItem('gbMyReactions') || '{}'); }
+    function myReactions() {
+        try { return JSON.parse(localStorage.getItem('gbMyReactions') || '{}'); }
+        catch (e) { return {}; }
+    }
     function setMyReaction(id, emoji) {
-        const r = myReactions(); r[id] = emoji; localStorage.setItem('gbMyReactions', JSON.stringify(r));
+        const r = myReactions(); r[id] = emoji;
+        try { localStorage.setItem('gbMyReactions', JSON.stringify(r)); } catch (e) {}
     }
     function clearMyReaction(id) {
-        const r = myReactions(); delete r[id]; localStorage.setItem('gbMyReactions', JSON.stringify(r));
+        const r = myReactions(); delete r[id];
+        try { localStorage.setItem('gbMyReactions', JSON.stringify(r)); } catch (e) {}
     }
-    // Remember this guest's name for convenience
     if (localStorage.getItem('gbMyName')) guestName.value = localStorage.getItem('gbMyName');
 
-    /* ---- Open / close ---- */
     const themeColorMeta = document.querySelector('meta[name="theme-color"]');
     function setThemeColor(hex) { if (themeColorMeta) themeColorMeta.setAttribute('content', hex); }
 
@@ -1058,19 +931,18 @@
         layer4.style.display = 'flex';
         document.body.style.overflow = 'hidden';
         layer4.scrollTop = 0;
-        setThemeColor('#faf4ea'); // match guestbook cream background
+        setThemeColor('#faf4ea');
         setTimeout(() => { layer4.style.opacity = 1; }, 50);
         loadMessages();
-        if (SUPABASE_READY) pollTimer = setInterval(loadMessages, 7000); // light auto-refresh
+        if (SUPABASE_READY && !pollTimer) pollTimer = setInterval(loadMessages, 7000);
     });
     btnCloseGuestbook.addEventListener('click', () => {
-        // Dismiss the on-screen keyboard if a field is focused, so closing is clean
         if (document.activeElement && typeof document.activeElement.blur === 'function') {
             document.activeElement.blur();
         }
         layer4.style.opacity = 0;
         document.body.style.overflow = '';
-        setThemeColor('#580f1c'); // back to cabernet red
+        setThemeColor('#580f1c');
         if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
         setTimeout(() => {
             layer4.style.display = 'none';
@@ -1078,14 +950,12 @@
         }, 800);
     });
 
-    /* ---- Char counter ---- */
     guestMsg.addEventListener('input', () => {
         const len = guestMsg.value.length;
         charCounter.textContent = `${len} / 280`;
         charCounter.classList.toggle('near-limit', len > 250);
     });
 
-    /* ---- Emoji quick-insert ---- */
     document.querySelectorAll('.emoji-insert').forEach(btn => {
         btn.addEventListener('click', () => {
             guestMsg.value += btn.dataset.emoji;
@@ -1094,22 +964,20 @@
         });
     });
 
-    /* ---- Submit a new message ---- */
     guestbookForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const name = guestName.value.trim();
         const message = guestMsg.value.trim();
         if (!name || !message) return;
 
-        localStorage.setItem('gbMyName', name);
+        try { localStorage.setItem('gbMyName', name); } catch (err) {}
         sendBtn.disabled = true;
         sendBtn.textContent = 'SENDING…';
 
         if (!SUPABASE_READY) {
-            // Fallback so the page still works before Supabase is connected
             let local = JSON.parse(localStorage.getItem('gbLocal') || '[]');
             local.push({ id: 'local-' + Date.now(), name, message, created_at: new Date().toISOString(), reactions: {}, replies: [] });
-            localStorage.setItem('gbLocal', JSON.stringify(local));
+            try { localStorage.setItem('gbLocal', JSON.stringify(local)); } catch (err) {}
             finishSend();
             renderLocal();
             return;
@@ -1123,7 +991,6 @@
             });
             if (!res.ok) throw new Error('post failed');
             finishSend();
-            burstConfetti();
             await loadMessages();
         } catch (err) {
             gbStatus.textContent = 'Could not send — check connection';
@@ -1141,7 +1008,6 @@
         burstConfetti();
     }
 
-    /* ---- Load + render messages ---- */
     async function loadMessages() {
         if (!SUPABASE_READY) { renderLocal(); return; }
         try {
@@ -1161,20 +1027,28 @@
         renderMessages(local, true);
     }
 
+    /* Re-fetch a single row so we always PATCH against the freshest data.
+       This is the core of the concurrency fix: read latest -> modify ->
+       write, instead of trusting possibly-stale local state. */
+    async function fetchRow(id) {
+        const res = await fetch(`${REST()}?id=eq.${id}&select=*`, { headers: HEADERS() });
+        if (!res.ok) throw new Error('row fetch failed');
+        const arr = await res.json();
+        return arr[0] || null;
+    }
+
     function renderMessages(rows, isLocal = false) {
         latestRows = rows;
 
-        // avoid needless re-render flicker — but don't skip if a reply box is open
         const hash = JSON.stringify(rows.map(r => [r.id, r.reactions, r.replies]));
         if (hash === lastRenderHash && !isLocal && openComposerId === null) { return; }
         lastRenderHash = hash;
 
         const wasNearBottom = chatHistory.scrollHeight - chatHistory.scrollTop - chatHistory.clientHeight < 80;
 
-        // Always-present welcome bubble from the couple
         let html = `
             <div class="chat-bubble couple-welcome">
-                <div class="chat-name">Raynald & Regina</div>
+                <div class="chat-name">Raynald &amp; Regina</div>
                 <div class="chat-message">Thank you for visiting! We can't wait to see you. Please leave a message below! ❤️</div>
             </div>`;
 
@@ -1183,7 +1057,11 @@
         }
 
         const mine = myReactions();
-        rows.forEach(r => {
+        /* Deterministic left/right alternation: based on each message's
+           position in the ordered list, NOT CSS nth-of-type. Stable even
+           after deletes. */
+        rows.forEach((r, idx) => {
+            const altClass = (idx % 2 === 1) ? ' alt-right' : '';
             const reactions = r.reactions || {};
             const reactHtml = REACTIONS.map(em => {
                 const count = reactions[em] || 0;
@@ -1192,7 +1070,6 @@
                 return `<button class="reaction-btn${active}" data-id="${r.id}" data-emoji="${em}" aria-label="React with ${em}" aria-pressed="${mine[r.id] === em ? 'true' : 'false'}">${em}${countSpan}</button>`;
             }).join('');
 
-            // Couple replies thread
             const replies = Array.isArray(r.replies) ? r.replies : [];
             let repliesHtml = '';
             if (replies.length) {
@@ -1203,7 +1080,6 @@
                     </div>`).join('') + `</div>`;
             }
 
-            // Admin-only controls (reply / delete)
             const adminHtml = `
                 <div class="admin-controls">
                     <button class="admin-btn reply-toggle" data-id="${r.id}">Reply</button>
@@ -1219,7 +1095,7 @@
                 </div>` : ''}`;
 
             html += `
-                <div class="chat-bubble guest-bubble" data-id="${r.id}">
+                <div class="chat-bubble guest-bubble${altClass}" data-id="${r.id}">
                     <div class="chat-name">${escapeHTML(r.name)} <span class="chat-time">${timeAgo(r.created_at)}</span></div>
                     <div class="chat-message">${escapeHTML(r.message)}</div>
                     <div class="reaction-row">${reactHtml}</div>
@@ -1230,20 +1106,15 @@
 
         chatHistory.innerHTML = html;
 
-        // counter
         gbCount.textContent = rows.length ? `${rows.length} ${rows.length === 1 ? 'wish' : 'wishes'} 💌` : '';
 
-        // wire reaction buttons
         chatHistory.querySelectorAll('.reaction-btn').forEach(btn => {
             btn.addEventListener('click', () => toggleReaction(btn.dataset.id, btn.dataset.emoji));
         });
-
-        // wire admin buttons (only present when body.is-admin)
         chatHistory.querySelectorAll('.reply-toggle').forEach(btn => {
             btn.addEventListener('click', () => {
                 openComposerId = (openComposerId === btn.dataset.id) ? null : btn.dataset.id;
                 renderMessages(latestRows, true);
-                // focus the textarea if just opened
                 if (openComposerId) {
                     const ta = chatHistory.querySelector(`.reply-composer[data-id="${openComposerId}"] textarea`);
                     if (ta) ta.focus();
@@ -1266,85 +1137,104 @@
         if (wasNearBottom) chatHistory.scrollTop = chatHistory.scrollHeight;
     }
 
-    /* ---- Reactions ---- */
+    /* ---- Reactions (concurrency-safe) ----
+       Optimistically update locally, then PATCH against the FRESHLY
+       fetched row so two near-simultaneous reactions don't clobber each
+       other's counts. */
     async function toggleReaction(id, emoji) {
-        const rows = latestRows;
-        const row = rows.find(r => String(r.id) === String(id));
+        const row = latestRows.find(r => String(r.id) === String(id));
         if (!row) return;
-        const reactions = { ...(row.reactions || {}) };
         const mine = myReactions();
         const prev = mine[id];
 
-        // one reaction per guest per message: remove old, add new (or toggle off)
+        // optimistic local update for snappy UI
+        const optimistic = { ...(row.reactions || {}) };
         if (prev === emoji) {
-            reactions[emoji] = Math.max(0, (reactions[emoji] || 1) - 1);
+            optimistic[emoji] = Math.max(0, (optimistic[emoji] || 1) - 1);
             clearMyReaction(id);
         } else {
-            if (prev) reactions[prev] = Math.max(0, (reactions[prev] || 1) - 1);
-            reactions[emoji] = (reactions[emoji] || 0) + 1;
+            if (prev) optimistic[prev] = Math.max(0, (optimistic[prev] || 1) - 1);
+            optimistic[emoji] = (optimistic[emoji] || 0) + 1;
             setMyReaction(id, emoji);
         }
-        row.reactions = reactions;
-        renderMessages(rows, true); // optimistic
+        row.reactions = optimistic;
+        renderMessages(latestRows, true);
 
         if (!SUPABASE_READY) {
             if (String(id).startsWith('local-')) {
                 const local = JSON.parse(localStorage.getItem('gbLocal') || '[]');
-                const t = local.find(m => m.id === id); if (t) t.reactions = reactions;
-                localStorage.setItem('gbLocal', JSON.stringify(local));
+                const t = local.find(m => m.id === id); if (t) t.reactions = optimistic;
+                try { localStorage.setItem('gbLocal', JSON.stringify(local)); } catch (e) {}
             }
             return;
         }
+
+        // Authoritative write: re-read the server's current counts and apply
+        // ONLY this guest's delta on top, so a concurrent reaction from
+        // someone else isn't overwritten. prev = emoji this guest had before,
+        // myNow = emoji this guest has after (undefined if toggled off).
+        const myNow = myReactions()[id];
         try {
-            await fetch(`${REST()}?id=eq.${id}`, {
+            const fresh = await fetchRow(id);
+            if (!fresh) return;
+            const server = { ...(fresh.reactions || {}) };
+            if (prev) server[prev] = Math.max(0, (server[prev] || 1) - 1); // remove old
+            if (myNow) server[myNow] = (server[myNow] || 0) + 1;           // add new
+            const res = await fetch(`${REST()}?id=eq.${id}`, {
                 method: 'PATCH',
                 headers: { ...HEADERS(), 'Prefer': 'return=minimal' },
-                body: JSON.stringify({ reactions })
+                body: JSON.stringify({ reactions: server })
             });
-        } catch (err) { /* optimistic UI already updated */ }
+            if (res.ok) await loadMessages();
+        } catch (err) { /* optimistic UI stands; next poll reconciles */ }
     }
 
-    /* ---- Couple replies (admin only) ---- */
+    /* ---- Couple replies (admin only, concurrency-safe) ---- */
     async function sendReply(id, text) {
-        if (!IS_ADMIN) return;
+        if (!IS_ADMIN || replySending) return;
         const message = (text || '').trim();
         if (!message) return;
 
-        const rows = latestRows;
-        const row = rows.find(r => String(r.id) === String(id));
-        if (!row) return;
-
-        const replies = Array.isArray(row.replies) ? [...row.replies] : [];
-        replies.push({ name: COUPLE_NAME, message, created_at: new Date().toISOString() });
-        row.replies = replies;
-
-        // optimistic update + close composer
-        openComposerId = null;
-        renderMessages(rows, true);
+        replySending = true;
+        const sendBtnEl = chatHistory.querySelector(`.reply-send[data-id="${id}"]`);
+        if (sendBtnEl) { sendBtnEl.disabled = true; sendBtnEl.textContent = 'Sending…'; }
 
         if (!SUPABASE_READY) {
-            if (String(id).startsWith('local-')) {
-                const local = JSON.parse(localStorage.getItem('gbLocal') || '[]');
-                const t = local.find(m => m.id === id); if (t) t.replies = replies;
-                localStorage.setItem('gbLocal', JSON.stringify(local));
+            const local = JSON.parse(localStorage.getItem('gbLocal') || '[]');
+            const t = local.find(m => String(m.id) === String(id));
+            if (t) {
+                t.replies = Array.isArray(t.replies) ? t.replies : [];
+                t.replies.push({ name: COUPLE_NAME, message, created_at: new Date().toISOString() });
+                try { localStorage.setItem('gbLocal', JSON.stringify(local)); } catch (e) {}
             }
+            openComposerId = null; replySending = false;
+            renderLocal();
             return;
         }
+
         try {
+            // re-fetch so we append to the latest replies array, not a stale one
+            const fresh = await fetchRow(id);
+            if (!fresh) throw new Error('row gone');
+            const replies = Array.isArray(fresh.replies) ? [...fresh.replies] : [];
+            replies.push({ name: COUPLE_NAME, message, created_at: new Date().toISOString() });
             const res = await fetch(`${REST()}?id=eq.${id}`, {
                 method: 'PATCH',
                 headers: { ...HEADERS(), 'Prefer': 'return=minimal' },
                 body: JSON.stringify({ replies })
             });
             if (!res.ok) throw new Error('reply failed');
+            openComposerId = null;
             burstConfetti();
             await loadMessages();
         } catch (err) {
             gbStatus.textContent = 'Could not send reply — check connection';
+            if (sendBtnEl) { sendBtnEl.disabled = false; sendBtnEl.textContent = 'Send Reply'; }
+        } finally {
+            replySending = false;
         }
     }
 
-    /* ---- Delete a message (admin only) ---- */
     async function deleteMessage(id) {
         if (!IS_ADMIN) return;
         if (!confirm('Delete this message? This cannot be undone.')) return;
@@ -1352,7 +1242,7 @@
         if (!SUPABASE_READY) {
             let local = JSON.parse(localStorage.getItem('gbLocal') || '[]');
             local = local.filter(m => String(m.id) !== String(id));
-            localStorage.setItem('gbLocal', JSON.stringify(local));
+            try { localStorage.setItem('gbLocal', JSON.stringify(local)); } catch (e) {}
             renderLocal();
             return;
         }
@@ -1368,10 +1258,10 @@
         }
     }
 
-    /* ---- Helpers ---- */
     function timeAgo(iso) {
         if (!iso) return '';
         const d = new Date(iso); const diff = (Date.now() - d.getTime()) / 1000;
+        if (diff < 0) return 'just now';
         if (diff < 60) return 'just now';
         if (diff < 3600) return Math.floor(diff/60) + 'm ago';
         if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
@@ -1407,4 +1297,4 @@
     }
 </script>
 </body>
-    </html>
+</html>
