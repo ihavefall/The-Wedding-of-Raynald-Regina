@@ -185,7 +185,6 @@
     .detail-table { font-family: var(--font-body); width: 100%; margin-bottom: 5%; border-collapse: separate; border-spacing: 0 1.4%; font-size: clamp(0.66rem, 3.1cqw, 0.9rem); }
     .detail-table td.label { width: 18%; font-weight: 600; letter-spacing: 0.04em; vertical-align: middle; font-size: 0.82em; text-transform: uppercase; opacity: 0.7; }
     .detail-table td.value { border: none; border-bottom: 1px solid rgba(51,51,51,0.25); padding: 4px 6px; background-color: transparent; font-weight: 400; }
-    .detail-table td.value.name-value { white-space: nowrap; font-size: clamp(0.58rem, 2.7cqw, 0.82rem); }
     .typewriter-text { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: clamp(0.82rem, 3.5cqw, 1.12rem); line-height: 1.45; flex: 1 1 auto; min-height: 0; overflow: hidden; color: #2c1a1a; }
     .vertical-name { position: absolute; bottom: 24%; font-family: var(--font-display); font-size: clamp(1.6rem, 9cqw, 3rem); color: var(--cabernet-red); writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: 0.08em; font-weight: 500; z-index: 6; }
     .groom-card .vertical-name { left: 16%; } .bride-card .vertical-name { right: 16%; }
@@ -245,11 +244,51 @@
     .photo-strip { background-color: var(--cabernet-red); padding: 15px; box-shadow: 0 15px 25px rgba(0,0,0,0.4); transform: translate3d(0,-100%,0); will-change: transform; backface-visibility: hidden; }
     .photobooth-wrapper.visible .photo-strip { animation: printOut 2.4s cubic-bezier(0.33, 0, 0.2, 1) forwards; animation-delay: 0.4s; }
     @keyframes printOut { 0% { transform: translate3d(0,-100%,0); } 100% { transform: translate3d(0,0,0); } }
-    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    
+    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; transition: opacity 0.3s ease; }
     .photo-grid img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 2px; filter: contrast(1.1) brightness(0.95); transform: translateZ(0); }
     .strip-footer { text-align: center; margin-top: 25px; margin-bottom: 10px; color: var(--paper-white); display: flex; flex-direction: column; gap: 5px; }
     .strip-names { font-family: 'Pinyon Script', cursive; font-size: clamp(1.7rem, 8vw, 2.3rem); line-height: 1; white-space: nowrap; }
     .strip-date { font-family: 'Courier Prime', monospace; font-size: 0.9rem; letter-spacing: 3px; }
+
+    /* New CSS for pagination */
+    .photo-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin-top: 30px;
+    }
+    .photo-page-btn {
+        background: transparent;
+        border: 1px solid var(--cabernet-red);
+        color: var(--cabernet-red);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-family: var(--font-body);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+    .photo-page-btn:hover:not(:disabled) {
+        background: var(--cabernet-red);
+        color: var(--paper-white);
+    }
+    .photo-page-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        border-color: rgba(88,15,28,0.3);
+    }
+    .photo-page-indicator {
+        font-family: 'Courier Prime', monospace;
+        font-size: 0.95rem;
+        color: var(--cabernet-red);
+        font-weight: 700;
+    }
+
     .open-guestbook-btn {
         background-color: var(--paper-white);
         color: var(--cabernet-red);
@@ -466,7 +505,7 @@
         <div class="profile-card groom-card pop-element">
             <div class="card-content">
                 <table class="detail-table">
-                    <tr><td class="label">NAME:</td><td class="value name-value">dr. RAYNALD G. BAGY</td></tr>
+                    <tr><td class="label">NAME:</td><td class="value">dr. RAYNALD G. BAGY</td></tr>
                     <tr><td class="label">ABOUT:</td><td class="value">PROFESSIONAL SLEEPER</td></tr>
                     <tr><td class="label">DAD:</td><td class="value">Ir. DJONI BAGY, MT</td></tr>
                     <tr><td class="label">MOM:</td><td class="value"> LIDYA LAORITAN, SE</td></tr>
@@ -485,7 +524,7 @@
         <div class="profile-card bride-card pop-element">
             <div class="card-content">
                 <table class="detail-table">
-                    <tr><td class="label">NAME:</td><td class="value name-value">REGINA B. LAHOPE, S.Ak</td></tr>
+                    <tr><td class="label">NAME:</td><td class="value">REGINA B. LAHOPE, S.Ak</td></tr>
                     <tr><td class="label">ABOUT:</td><td class="value">PETITE CUTIE</td></tr>
                     <tr><td class="label">DAD:</td><td class="value">FERRY LAHOPE</td></tr>
                     <tr><td class="label">MOM:</td><td class="value">LIKE TJANDRA</td></tr>
@@ -558,12 +597,13 @@
             <video src="Project Name 6.mp4" playsinline autoplay muted loop disablepictureinpicture disableremoteplayback preload="metadata"></video>
         </div>
 
+        <!-- Singular Photo Booth with Pagination -->
         <div class="photobooth-wrapper pop-element">
             <div class="photobooth-container">
                 <div class="printer-slot"><div class="printer-slit"></div></div>
                 <div class="strip-mask">
                     <div class="photo-strip">
-                        <div class="photo-grid">
+                        <div class="photo-grid" id="photo-grid-container">
                             <img src="1.jpeg" alt="Photo 1" loading="lazy" decoding="async">
                             <img src="2.jpeg" alt="Photo 2" loading="lazy" decoding="async">
                             <img src="3.jpeg" alt="Photo 3" loading="lazy" decoding="async">
@@ -579,6 +619,12 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <div class="photo-pagination">
+                <button id="photo-prev" class="photo-page-btn" disabled>&#8592; Prev</button>
+                <span id="photo-page-indicator" class="photo-page-indicator">1 / 2</span>
+                <button id="photo-next" class="photo-page-btn">Next &#8594;</button>
             </div>
         </div>
 
@@ -856,6 +902,61 @@
             guard++;
         }
     }
+    
+    /* --- PHOTOBOOTH PAGINATION LOGIC --- */
+    (function initPhotoPagination() {
+        const photoGrid = document.getElementById('photo-grid-container');
+        if (!photoGrid) return;
+        const photoImgs = photoGrid.querySelectorAll('img');
+        const btnPrev = document.getElementById('photo-prev');
+        const btnNext = document.getElementById('photo-next');
+        const pageIndicator = document.getElementById('photo-page-indicator');
+
+        const pages = [
+            ['1.jpeg', '2.jpeg', '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg'],
+            ['9.jpeg', '10.jpeg', '11.jpeg', '12.jpeg', '13.jpeg', '14.jpeg', '15.jpeg', '16.jpeg']
+        ];
+        let currentPage = 0;
+
+        // Preload second page images so they appear instantly when clicked
+        pages[1].forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+
+        function updatePhotoPage() {
+            photoGrid.style.opacity = 0;
+            setTimeout(() => {
+                pages[currentPage].forEach((src, index) => {
+                    if (photoImgs[index]) {
+                        photoImgs[index].src = src;
+                    }
+                });
+                pageIndicator.textContent = (currentPage + 1) + " / " + pages.length;
+                btnPrev.disabled = (currentPage === 0);
+                btnNext.disabled = (currentPage === pages.length - 1);
+                
+                // Allow a tiny moment for DOM to apply the new src before fading in
+                setTimeout(() => {
+                    photoGrid.style.opacity = 1;
+                }, 50);
+            }, 300); // Wait for fade out to complete before swapping src
+        }
+
+        btnPrev.addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                updatePhotoPage();
+            }
+        });
+
+        btnNext.addEventListener('click', () => {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                updatePhotoPage();
+            }
+        });
+    })();
 
     /* ============================================================
        LAYER 4 — SHARED GUESTBOOK (Supabase backend)
