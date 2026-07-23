@@ -912,9 +912,10 @@
         const btnNext = document.getElementById('photo-next');
         const pageIndicator = document.getElementById('photo-page-indicator');
 
+        // Note the second array now only has 4 items!
         const pages = [
             ['1.jpeg', '2.jpeg', '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg'],
-            ['9.jpeg', '10.jpeg', '11.jpeg', '12.jpeg', '13.jpeg', '14.jpeg', '15.jpeg', '16.jpeg']
+            ['9.jpeg', '10.jpeg', '11.jpeg', '12.jpeg'] 
         ];
         let currentPage = 0;
 
@@ -927,11 +928,20 @@
         function updatePhotoPage() {
             photoGrid.style.opacity = 0;
             setTimeout(() => {
-                pages[currentPage].forEach((src, index) => {
-                    if (photoImgs[index]) {
-                        photoImgs[index].src = src;
+                const currentPhotos = pages[currentPage];
+                
+                // Loop through all 8 HTML image slots
+                photoImgs.forEach((img, index) => {
+                    if (index < currentPhotos.length) {
+                        // If we have a photo for this slot, update it and make sure it's visible
+                        img.src = currentPhotos[index];
+                        img.style.display = 'block';
+                    } else {
+                        // If there is no photo for this slot (e.g., slots 5-8 on page 2), hide it completely
+                        img.style.display = 'none';
                     }
                 });
+                
                 pageIndicator.textContent = (currentPage + 1) + " / " + pages.length;
                 btnPrev.disabled = (currentPage === 0);
                 btnNext.disabled = (currentPage === pages.length - 1);
